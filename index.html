@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Sheep Clicker</title>
+	<link href="style.css" rel="stylesheet" type="text/css" />
+    <!--script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="scripts/dx.js"></script>
+	<script src="scripts/clicks.js"></script>
+	<script src="scripts/anim.js"></script>
+	<script src="scripts/upgrades.js"></script>
+	<script src="scripts/misc.js"></script>
+	<script src="scripts/idle.js"></script>
+	<script src="scripts/mus.js"></script>
+	<script src="scripts/dxb.js"></script>
+	<script src="scripts/mobile.js"></script>
+	<script src="scripts/console.js"></script>
+</head>
+
+<body>
+	<div id="topbar" class="fixed"> <!-- Top bar -->
+		<center><p id="tbt">Sheep Clicker version <span class="red" id="ver">b8</span> by <a href="https://repl.it/@Lamby777" class="hidelink white">DexieTheSheep / Lamby777</a></center>
+	</div>
+	<br><br><br><br>
+	<div id="clickspace" oncontextmenu="return false;">
+	<br/>
+	<h3 id="pts" class="ct">
+		Click the sheep to shear him!
+	</h3>
+	<span title="You can increase this with Dexie's Blessings">
+		<h4 id="max" class="ct">
+			Max wool:
+		</h4>
+	</span>
+	<audio id="mus" loop>
+		<source src="src/soundscape.mp3" type="audio/mpeg">
+	</audio>
+	<audio id="cs">
+		<source src="http://dight310.byu.edu/media/audio/FreeLoops.com/5/5/Mouse%20Click%20Fast.wav-23232-Free-Loops.com.mp3" type="audio/mpeg">
+	</audio>
+	<img id="sheep" class="ctimg" src="src/sheep.jpeg"></img>
+	<br/><br/>
+	<span title="WBpC is how many bags of wool you get each time you click the big sheep to shear him. You can increase your WBpC by buying Shepherds or buying any upgrade that directly (WBpC boost) or indirectly (Shepherd boost, and some other stuff) helps you gain WBpC"><p id="wbpc">WBpC: 0</p></span>
+	<span title="WBpS is how many bags of wool you get per second, automatically. You can increase your WBpS by buying certain upgrades, or by buying any game asset except Shepherd. (Shepherd increases WBpC)"><p id="wbps">WBpS: 0</p></span>
+	<br/>
+	</div>
+	<center>
+	<div id="store">
+	<p id="shepherd" class="sug">
+		[Shepherd]
+	</p>
+	<p id="shearer" class="sug">
+		[Shearer]
+	</p>
+	<p id="knitter" class="sug">
+		[Wool Knitter]
+	</p>
+	<p id="ssitter" class="sug">
+		[Sheep-sitter]
+	</p>
+	<p id="spiz" class="sug">
+		[Sheep Pizza]
+	</p>
+	<p id="dxb" class="sug">DEXIE'S BLESSING 1 (200Mil)</p>
+	<br><br><br>
+	<p id="bbsheps" class="cpu">Key B = Bulk buy last bought item</p>
+	<p id="bbli bbsheps" class="mobile">{Bulk Buy last item}</p>
+	<h2>Upgrades</h2>
+	<p id="shepm0" class="ug">DOUBLEUP SHEPHERDS (5k)</p>
+	<p id="shrrm0" class="ug">DOUBLEUP SHEARERS (50k)</p>
+	<p id="shepm1" class="ug">SHEEPDOG TRAINING (100k)</p>
+	<p id="shrrm1" class="ug">BETTER SHEARS (150k)</p>
+	<p id="kntm0" class="ug">DOUBLEUP KNITTERS (400k)</p>
+	<p id="shrrm2" class="ug">REINFORCED INGOT SHEARS (400k)</p>
+	<p id="kntm1" class="ug">FASTER KNITTING (600k)</p>
+	<p id="shepm2" class="ug">NOW HIRING SHEPHERDS (1Mil)</p>
+	<p id="sbomb" class="ug">SHEEP BOMB ABILITY (2Mil)</p>
+	<p id="drill" class="ug"><span title="You can hold D to click rapidly">DRILL SHEARS ABILITY (5Mil)</span></p>
+	<p id="kntm2" class="ug">SWEATER SHOP (25Mil)</p>
+	<p id="shrrm3" class="ug">LARGER DUFFEL BAGS (50Mil)</p>
+	<p id="shrrm4" class="ug">RELAXING MUSIC FOR SHEEP (144Mil)</p>
+	<p id="shepm3" class="ug">CUSTOMIZED BELLS (350Mil)</p>
+	<p id="kntm3" class="ug">CUSTOMER SERVICE (470Mil)</p>
+	<p id="shrrm5" class="ug">MAGICAL SHEARS (650Mil)</p>
+	<p id="shepm4" class="ug">SHEPHERD COLLEGE (900Mil)</p>
+	<p id="kntm4" class="ug">WOOL WEAVING LOOM (1.5Bil)</p>
+	<p id="shrrm6" class="ug">PERMANENT WOOL (2Bil)</p>
+	<p id="ssm0" class="ug">BOARD GAMES FOR LAMBS (10Bil)</p>
+	<p id="ssm1" class="ug">SHEEP PLAYGROUND (25Bil)</p>
+	</div>
+	</div>
+	</div>
+	</center>
+</body>
+
+</html>
