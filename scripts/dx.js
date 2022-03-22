@@ -1,12 +1,4 @@
-var dx = {};
-dx.exists = true;
-dx.about = {
-	ver: "a49"
-};
-
-
-//Library
-dx.lib = {
+export = {
 	str: {
 		reverse: function (t) {
 			return t.split().reverse().join();
@@ -37,7 +29,9 @@ dx.lib = {
 			return navigator.userAgent.match(/IEMobile/i);
 		},
 		any: function () {
-			return (mobileDevice.Android() || mobileDevice.BlackBerry() || mobileDevice.iOS() || mobileDevice.Opera() || mobileDevice.Windows());
+			return (mobileDevice.Android() || mobileDevice.BlackBerry()
+				|| mobileDevice.iOS() || mobileDevice.Opera()
+				|| mobileDevice.Windows());
 		}
 	},
 
@@ -153,7 +147,4 @@ dx.lib = {
 			}
 		}
 	}
-};
-if (typeof dx_load == "function") {
-	dx.output = dx.onload();
 }

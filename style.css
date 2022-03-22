@@ -38,7 +38,7 @@ img#sheep {
 	color: black;
 }
 
-.ug, .sug {
+.upgrade, .sug {
 	font-family: "Lucida Console", Monaco, monospace;
 	-webkit-user-select: none;        
 	-moz-user-select: none;
@@ -51,7 +51,7 @@ img#sheep {
 	line-height: 60%;
 }
 
-.ug {
+.upgrade {
 	display: block;
 }
 
