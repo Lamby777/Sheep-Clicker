@@ -4,8 +4,7 @@
 
 import {qstr}				from "./dx";
 import {ScientificNotation,
-		COST_ALGORITHMS,
-		Units			}	from "./classes";
+		units,	Units}	from "./classes";
 
 const queries = qstr.parse();
 qstr.clear();
@@ -21,79 +20,53 @@ const BLESSING_CAPS = [
 	new ScientificNotation(5, 11),		// 500 Bil
 	new ScientificNotation(2, 12),		// 2 T
 	new ScientificNotation(2.5, 14),	// 250 T
-]
+];
 
 const [
 	woolBagsDisplay,
 	maxBagsDisplay,
+	wbpsDisplay,
+	wbpcDisplay,
 ] = [
 	document.getElementById("pts"),
 	document.getElementById("max"),
+	document.getElementById("wbps"),
+	document.getElementById("wbpc"),
 ];
 
+export const unitAmounts: number[] = [];
+
+for (let i in units) unitAmounts[i] = 0;
+
 export let max = BLESSING_CAPS[0];
-export let c;
+export let c = 0; // Bags of wool
 var dxb = 0;
-var drill;
-var sbomb;
-var wbps;
+var drill = false;
+var sbomb = 0;
+var wbps = 0;
 var wbpc;
-var sheps;
-var shrr;
-var knt;
-var ss;
-var spiz;
-var shepcost;
-var shrrcost;
-var kntcost;
-var sscost;
-var spizcost;
-var shepmulti;
-var shrrmulti;
-var kntmulti;
-var ssmulti;
-var spizmulti;
-var cl;
 const m = document.getElementById("mus");
 const dxbElement = document.getElementById("dxb");
-
-c = 0;          // Bags of wool
-drill = false;  // Don't start with it!
-sbomb = 0;      // Same here
-wbps = 0;       // Wool bags per second
-sheps = 0;      // Shepherds
-shrr = 0;       // Idle Shearers
-knt = 0;        // Idle Knitters
-ss = 0;         // Idle Sheep-sitters
-spiz = 0;       // Idle Sheep Pizza Deliverers
-shepmulti = 1;  // Multipliers (from upgrades)
-shrrmulti = 1;  //
-kntmulti = 1;   //
-ssmulti = 1;    //
-spizmulti = 1;  //
 
 
 var last = "sheps"; // Last thing bought default
 setInterval(() => {
-	shepcost	= COST_ALGORITHMS[Units.SHEPHERD](sheps);
-	shrrcost	= COST_ALGORITHMS[Units.SHEARER](shrr);
-	kntcost		= COST_ALGORITHMS[Units.KNITTER](knt);
-	sscost		= COST_ALGORITHMS[Units.BABYSITTER](ss);
-	spizcost	= COST_ALGORITHMS[Units.PIZZAGUY](spiz);
-	wbps		= ((shrr * 2 * shrrmulti) + (knt * 100 * kntmulti) + (ss * 1000000 * ssmulti)) * (spiz * spizmulti > 0 ? spiz * spizmulti : 1);
+	wbps		= calculateWBPS();
 	wbpc = (sheps * shepmulti + 1) * (spiz * spizmulti > 0 ? spiz * spizmulti : 1);
 	woolBagsDisplay.innterText	= `You have ${c.toLocaleString()} bags of wool!`;
 	maxBagsDisplay.innterText	= `Max wool: ${max.toLocaleString()}`;
+
+	// Update cost displays
 	$("p#shepherd").text("[Shepherd] Inventory: " + sheps + " Cost: " + shepcost);
-	$("p#wbps").text("WBpS: " + wbps.toLocaleString());
-	$("p#wbpc").text("WBpC: " + wbpc.toLocaleString());
+
+	// Update income stats
+	wbpsDisplay.innerText = `WBpS: ${wbps.toLocaleString()}`;
+	wbpcDisplay.innerText = `WBpC: ${wbpc.toLocaleString()}`;
 }, FPS);
 
-$("div#clickspace").click(function () {
+document.getElementById("clickspace")
+		.addEventListener("click", () => {
 	addWool(wbpc);
-});
-
-$(document).click(function () {
 	m.play();
 });
 
@@ -102,16 +75,7 @@ document.addEventListener("keypress", (e) => {
 		case "1":
 			if (sbomb) {
 				sbomb = false;
-				for (i = 0; i < 30; i++) {
-					var r = Math.random();
-					if (r < 0.6) {
-						sheps++;
-					} else if (r < 0.9) {
-						shrr++;
-					} else if (r < 1) {
-						knt++;
-					}
-				}
+				fireSheepBomb();
 			} else {
 				alert("You don't have a Sheep Bomb!");
 			} break;
@@ -171,6 +135,10 @@ setInterval(() => {
 	addWool(wbps/FPS);
 }, DELAY);
 
+function calculateWBPS() {
+	return ((shrr * 2 * shrrmulti) + (knt * 100 * kntmulti) + (ss * 1000000 * ssmulti)) * (spiz * spizmulti > 0 ? spiz * spizmulti : 1);
+}
+
 // Dexie's Blessing
 dxbElement.addEventListener("click", () => {
 	if (c >= max) {
@@ -192,6 +160,23 @@ dxbElement.addEventListener("click", () => {
 function addWool(amount: number): void {
 	c += amount;
 	if (c > max) c = max;
+}
+
+function fireSheepBomb() {
+	for (i = 0; i < 30; i++) {
+		var r = Math.random();
+		if (r < 0.6) {
+			sheps++;
+		} else if (r < 0.9) {
+			shrr++;
+		} else if (r < 1) {
+			knt++;
+		}
+	}
+}
+
+function getCostOfNextUnit(unitId: number) {
+	return units[unitId].cost(unitAmounts[unitId]);
 }
 
 // Saving

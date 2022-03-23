@@ -89,21 +89,34 @@ export enum Units {
 	PIZZAGUY,
 }
 
-export const COST_ALGORITHMS = [
-	// Shepherd
-	(lv) => (Math.ceil((lv * 9 + 3) / 4) + 15),
+class Unit {
+	constructor(
+		public name:	string,
+		public desc:	string,
+		// argument: current level, returns NEXT LEVEL's cost
+		public cost:	(lv) => number,
+	) {}
+}
+
+
+// Initialize units
+export const units = [
+	new Unit("Shepherd", "These guys can help you manage your business.",
+		(lv) => (Math.ceil((lv * 9 + 3) / 4) + 15)),
 	
-	// Shearer
-	(lv) => (Math.ceil((lv * 6 + 1) / 3) + Math.ceil(lv / 3)),
-
-	// Knitter
-	(lv) => (Math.ceil((lv * 439 + 490) * 0.9) + lv + 219000),
-
-	// Babysitter
-	(lv) => (Math.floor(lv ** 4 * 0.9) + lv + 10000000),
-
-	// Sheep Pizza
-	(lv) => (spiz ** 7 + 500000000),
+	new Unit("Shearer", "Shearers are trained for this task. Leave it to the pros!",
+		(lv) => (Math.ceil((lv * 6 + 1) / 3) + Math.ceil(lv / 3))),
+			
+	new Unit("Knitter", "The kind knitters down the street have " +
+			 			"agreed to knit goods for your business.",
+		(lv) => (Math.ceil((lv * 439 + 490) * 0.9) + lv + 219000)),
+			
+	new Unit("Babysitter", "You're too busy to watch ALL the sheep. " +
+			 				"Why not hire some caretakers?",
+		(lv) => (Math.floor(lv ** 4 * 0.9) + lv + 10000000)),
+			
+	new Unit("Sheep Pizza", "Pizza, pasta, put it in a box!",
+		(lv) => (spiz ** 7 + 500000000)),
 ];
 
 // Initialize upgrades
