@@ -89,7 +89,7 @@ export enum Units {
 	PIZZAGUY,
 }
 
-export const costAlgos = [
+export const COST_ALGORITHMS = [
 	// Shepherd
 	(lv) => (Math.ceil((lv * 9 + 3) / 4) + 15),
 	

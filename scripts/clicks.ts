@@ -3,7 +3,9 @@
 	################################	*/
 
 import {qstr}				from "./dx";
-import {ScientificNotation}	from "./classes";
+import {ScientificNotation,
+		COST_ALGORITHMS,
+		Units			}	from "./classes";
 
 const queries = qstr.parse();
 qstr.clear();
@@ -66,12 +68,12 @@ spizmulti = 1;  //
 
 
 var last = "sheps"; // Last thing bought default
-setInterval(function () {
-	shepcost = Math.ceil((sheps * 9 + 3) / 4) + 15;
-	shrrcost = Math.ceil((shrr * 6 + 1) / 3) + Math.ceil(shrr / 3);
-	kntcost = Math.ceil((knt * 439 + 490) * 0.9) + knt + 219000;
-	sscost = Math.floor(ss ** 4 * 0.9) + ss + 10000000;
-	spizcost = spiz ** 7 + 500000000;
+setInterval(() => {
+	shepcost	= COST_ALGORITHMS[Units.SHEPHERD](sheps);
+	shrrcost	= COST_ALGORITHMS[Units.SHEARER](shrr);
+	kntcost		= COST_ALGORITHMS[Units.KNITTER](knt);
+	sscost		= COST_ALGORITHMS[Units.BABYSITTER](ss);
+	spizcost	= COST_ALGORITHMS[Units.PIZZAGUY](spiz);
 	wbps = ((shrr * 2 * shrrmulti) + (knt * 100 * kntmulti) + (ss * 1000000 * ssmulti)) * (spiz * spizmulti > 0 ? spiz * spizmulti : 1);
 	mwbps = wbps.toLocaleString();
 	wbpc = (sheps * shepmulti + 1) * (spiz * spizmulti > 0 ? spiz * spizmulti : 1);
@@ -86,7 +88,7 @@ setInterval(function () {
 	$("p#spiz").text("[Sheep Pizza] Inventory: " + spiz + " Cost: " + spizcost);
 	$("p#wbps").text("WBpS: " + mwbps);
 	$("p#wbpc").text("WBpC: " + mwbpc);
-}, 10);
+}, FPS);
 
 $("div#clickspace").click(function () {
 	addWool(wbpc);
