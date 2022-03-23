@@ -2,7 +2,8 @@
 	#	  Dexie's Sheep Clicker	   #
 	################################	*/
 
-import {qstr}	from "./dx";
+import {qstr}				from "./dx";
+import {ScientificNotation}	from "./classes";
 
 const queries = qstr.parse();
 qstr.clear();
@@ -11,6 +12,16 @@ const dev = queries["dev"] === "1";
 
 const FPS = 20;
 const DELAY = 1000 / FPS;
+
+const BLESSING_CAPS = [
+	new ScientificNotation(2, 8),		// 200 Mil
+	new ScientificNotation(1, 9),		// 1 Bil
+	new ScientificNotation(5, 11),		// 500 Bil
+	new ScientificNotation(2, 12),		// 2 T
+	new ScientificNotation(2.5, 14),	// 250 T
+]
+
+export let max = BLESSING_CAPS[0];
 export let c;
 var dxb = 0;
 var drill;
@@ -36,6 +47,7 @@ var cl;
 var mwbps;
 var mwbpc;
 const m = document.getElementById("mus");
+const dxbElement = document.getElementById("dxb");
 
 c = 0;          // Bags of wool
 drill = false;  // Don't start with it!
@@ -65,9 +77,8 @@ setInterval(function () {
 	wbpc = (sheps * shepmulti + 1) * (spiz * spizmulti > 0 ? spiz * spizmulti : 1);
 	mwbpc = wbpc.toLocaleString();
 	cl = Math.floor(c).toLocaleString();
-	ml = max.toLocaleString();
 	$("#pts").text("You have " + cl + " bags of wool!");
-	$("#max").text("Max wool: " + ml);
+	$("#max").text("Max wool: " + max.toLocaleString());
 	$("p#shepherd").text("[Shepherd] Inventory: " + sheps + " Cost: " + shepcost);
 	$("p#shearer").text("[Shearer] Inventory: " + shrr + " Cost: " + shrrcost);
 	$("p#knitter").text("[Wool Knitter] Inventory: " + knt + " Cost: " + kntcost);
@@ -78,7 +89,7 @@ setInterval(function () {
 }, 10);
 
 $("div#clickspace").click(function () {
-	c += wbpc;
+	addWool(wbpc);
 });
 
 $(document).click(function () {
@@ -155,10 +166,32 @@ $("p#shepherd").click(function () {
 
 
 // Add wool bags to total
-
 setInterval(() => {
-	c += (wbps/FPS);
+	addWool(wbps/FPS);
 }, DELAY);
+
+// Dexie's Blessing
+dxbElement.addEventListener("click", () => {
+	if (c >= max) {
+		c -= max;
+		dxb++;
+		var presences = [" magical", " mysterious", " mystical",
+						 " dangerous", "n adventurous"]
+		var presence = presences[Math.floor(Math.random()*presences.length)];
+		alert("You feel a" +presence +" presence, granting you more power...");
+	} else {
+		alert("Not enough money!");
+	}
+
+	max = BLESSING_CAPS[dxb];
+	dxbElement.innerText =
+		`DEXIE'S BLESSING ${(dxb + 1)} (${max.toLocaleString()})`;
+});
+
+function addWool(amount: number): void {
+	c += amount;
+	if (c > max) c = max;
+}
 
 // Saving
 /* setInterval(function() {
