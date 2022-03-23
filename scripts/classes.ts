@@ -30,11 +30,25 @@ class Upgrade {
 
 // Had to rename this class because I realized I
 // invented a math concept that already exists... ¯\_(ツ)_/¯
-class ScientificNotation {
+export class ScientificNotation {
 	constructor(
 		public coefficient:	number,
 		public exponent:	number
 	) {}
+
+	static compare(	a: number | ScientificNotation,
+					b: number | ScientificNotation): number {
+		let aIsNum = a instanceof Number;
+		let bIsNum = a instanceof Number;
+		
+		if (aIsNum && bIsNum) {
+			// If both are primitive numbers, compare normally
+			return (a === b ? 0 :
+					a > b ? 1 : -1);
+		} else if (aIsNum) {
+			a //
+		}
+	}
 
 	equals(other: ScientificNotation): boolean {
 		// Very simple comparison	
@@ -81,7 +95,7 @@ class ScientificNotation {
 	}
 }
 
-export enum Units {
+export enum $Unit {
 	SHEPHERD,
 	SHEARER,
 	KNITTER,
@@ -94,7 +108,7 @@ class Unit {
 		public name:	string,
 		public desc:	string,
 		// argument: current level, returns NEXT LEVEL's cost
-		public cost:	(lv) => number,
+		public cost:	(lv: number) => number,
 	) {}
 }
 
@@ -116,7 +130,7 @@ export const units = [
 		(lv) => (Math.floor(lv ** 4 * 0.9) + lv + 10000000)),
 			
 	new Unit("Sheep Pizza", "Pizza, pasta, put it in a box!",
-		(lv) => (spiz ** 7 + 500000000)),
+		(lv) => (lv ** 7 + 500000000)),
 ];
 
 // Initialize upgrades

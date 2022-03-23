@@ -1,5 +1,5 @@
 const cont = document.getElementById("ctContainer");
-const csound = document.getElementById("cs");
+const csound = (document.getElementById("cs") as HTMLAudioElement);
 csound.volume = 0.4;
 
 document.getElementById("clickspace").addEventListener("click", () => {

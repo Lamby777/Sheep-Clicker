@@ -1,5 +1,5 @@
 // This file is like a JSON, but better :)
-import {Units}		from "./classes";
+import {$Unit}		from "./classes";
 
 export = [
 	{
@@ -9,7 +9,7 @@ export = [
 		costExponent:		3,
 		upgrade: {
 			multiBoost: {
-				[Units.SHEPHERD]:	1,
+				[$Unit.SHEPHERD]:	1,
 			}
 		}
 	},
@@ -21,7 +21,7 @@ export = [
 		costExponent:		4,
 		upgrade: {
 			multiBoost: {
-				[Units.SHEARER]:	1,
+				[$Unit.SHEARER]:	1,
 			}
 		}
 	},
@@ -33,7 +33,7 @@ export = [
 		costExponent:		5,
 		upgrade: {
 			multiBoost: {
-				[Units.SHEPHERD]:	1,
+				[$Unit.SHEPHERD]:	1,
 			}
 		}
 	},
@@ -45,7 +45,7 @@ export = [
 		costExponent:		5,
 		upgrade: {
 			multiBoost: {
-				[Units.SHEARER]:	1,
+				[$Unit.SHEARER]:	1,
 			}
 		}
 	},
@@ -57,7 +57,7 @@ export = [
 		costExponent:		5,
 		upgrade: {
 			multiBoost: {
-				[Units.KNITTER]:	1,
+				[$Unit.KNITTER]:	1,
 			}
 		}
 	},
@@ -69,7 +69,7 @@ export = [
 		costExponent:		5,
 		upgrade: {
 			multiBoost: {
-				[Units.SHEARER]:	1,
+				[$Unit.SHEARER]:	1,
 			}
 		}
 	},
@@ -81,7 +81,7 @@ export = [
 		costExponent:		5,
 		upgrade: {
 			multiBoost: {
-				[Units.KNITTER]:	2,
+				[$Unit.KNITTER]:	2,
 			}
 		}
 	},
@@ -93,7 +93,7 @@ export = [
 		costExponent:		6,
 		upgrade: {
 			multiBoost: {
-				[Units.SHEPHERD]:	2,
+				[$Unit.SHEPHERD]:	2,
 			}
 		}
 	},
@@ -105,7 +105,7 @@ export = [
 		costExponent:		6,
 		upgrade: {
 			/*multiBoost: {
-				[Units.SHEPHERD]:	2,
+				[$Unit.SHEPHERD]:	2,
 			}*/
 		}
 	},
@@ -117,7 +117,7 @@ export = [
 		costExponent:		6,
 		upgrade: {
 			/*multiBoost: {
-				[Units.SHEPHERD]:	2,
+				[$Unit.SHEPHERD]:	2,
 			}*/
 		}
 	},
@@ -129,7 +129,7 @@ export = [
 		costExponent:		7,
 		upgrade: {
 			multiBoost: {
-				[Units.KNITTER]:	4,
+				[$Unit.KNITTER]:	4,
 			}
 		}
 	},
@@ -141,7 +141,7 @@ export = [
 		costExponent:		7,
 		upgrade: {
 			multiBoost: {
-				[Units.SHEARER]:	1.5,
+				[$Unit.SHEARER]:	1.5,
 			}
 		}
 	},
@@ -153,7 +153,7 @@ export = [
 		costExponent:		8,
 		upgrade: {
 			multiBoost: {
-				[Units.SHEARER]:	2.5,
+				[$Unit.SHEARER]:	2.5,
 			}
 		}
 	},
@@ -165,7 +165,7 @@ export = [
 		costExponent:		8,
 		upgrade: {
 			multiBoost: {
-				[Units.SHEPHERD]:	2.5,
+				[$Unit.SHEPHERD]:	2.5,
 			}
 		}
 	},
