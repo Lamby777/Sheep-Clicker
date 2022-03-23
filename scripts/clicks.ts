@@ -4,7 +4,9 @@
 
 import {qstr}				from "./dx";
 import {units,	$Unit}		from "./classes";
-import {Decimal}			from "./decimal";
+import Decimal				from "./decimal";
+
+alert("hey");
 
 const queries = qstr.parse();
 qstr.clear();
@@ -52,9 +54,9 @@ for (let i = 0; i < units.length; i++) {
 			uCounts[i]++;
 			last = i;
 		} else {
-			$("p#shepherd").css("background", "red");
+			uElements[i].style.backgroundColor = "red";
 			setTimeout(() => {
-				$("p#shepherd").css("background", "");
+				uElements[i].style.backgroundColor = "";
 			}, 300);
 		}
 	});

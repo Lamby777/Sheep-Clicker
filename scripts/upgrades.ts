@@ -1,12 +1,12 @@
 // This file is like a JSON, but better :)
 import {$Unit}		from "./classes";
+import Decimal		from "./decimal";
 
 export = [
 	{
 		name:				"DoubleUp Shepherds",
 		desc:				"2x Power!",
-		costCoefficient:	5,
-		costExponent:		3,
+		cost:				new Decimal("5_000"),
 		upgrade: {
 			multiBoost: {
 				[$Unit.SHEPHERD]:	1,
@@ -17,8 +17,7 @@ export = [
 	{
 		name:				"DoubleUp Shearers",
 		desc:				"2x Power!",
-		costCoefficient:	5,
-		costExponent:		4,
+		cost:				new Decimal("50_000"),
 		upgrade: {
 			multiBoost: {
 				[$Unit.SHEARER]:	1,
@@ -29,8 +28,7 @@ export = [
 	{
 		name:				"Sheepdog Training",
 		desc:				"This guy can help herd the sheep.",
-		costCoefficient:	1,
-		costExponent:		5,
+		cost:				new Decimal("100_000"),
 		upgrade: {
 			multiBoost: {
 				[$Unit.SHEPHERD]:	1,
@@ -41,8 +39,7 @@ export = [
 	{
 		name:				"Better Shears",
 		desc:				"These ones actually work!",
-		costCoefficient:	1.5,
-		costExponent:		5,
+		cost:				new Decimal("150_000"),
 		upgrade: {
 			multiBoost: {
 				[$Unit.SHEARER]:	1,
@@ -53,8 +50,7 @@ export = [
 	{
 		name:				"DoubleUp Knitters",
 		desc:				"2x Power!",
-		costCoefficient:	4,
-		costExponent:		5,
+		cost:				new Decimal("400_000"),
 		upgrade: {
 			multiBoost: {
 				[$Unit.KNITTER]:	1,
@@ -65,8 +61,7 @@ export = [
 	{
 		name:				"Reinforced Ingot Shears",
 		desc:				"These shears contain a LOT of copper.",
-		costCoefficient:	4,
-		costExponent:		5,
+		cost:				new Decimal("400_000"),
 		upgrade: {
 			multiBoost: {
 				[$Unit.SHEARER]:	1,
@@ -77,8 +72,7 @@ export = [
 	{
 		name:				"Faster Knitting",
 		desc:				"Is this possible?",
-		costCoefficient:	6,
-		costExponent:		5,
+		cost:				new Decimal("600_000"),
 		upgrade: {
 			multiBoost: {
 				[$Unit.KNITTER]:	2,
@@ -89,8 +83,7 @@ export = [
 	{
 		name:				"Now Hiring Shepherds",
 		desc:				"We need some more help...",
-		costCoefficient:	1,
-		costExponent:		6,
+		cost:				new Decimal("1_000_000"),
 		upgrade: {
 			multiBoost: {
 				[$Unit.SHEPHERD]:	2,
@@ -101,8 +94,7 @@ export = [
 	{
 		name:				"Sheep Bomb Ability",
 		desc:				"Is this possible?",
-		costCoefficient:	2,
-		costExponent:		6,
+		cost:				new Decimal("2_000_000"),
 		upgrade: {
 			/*multiBoost: {
 				[$Unit.SHEPHERD]:	2,
@@ -113,8 +105,7 @@ export = [
 	{
 		name:				"Drill Shears",
 		desc:				"VRRRRRRRRR... Hold D to shear rapidly!",
-		costCoefficient:	5,
-		costExponent:		6,
+		cost:				new Decimal("5_000_000"),
 		upgrade: {
 			/*multiBoost: {
 				[$Unit.SHEPHERD]:	2,
@@ -125,8 +116,7 @@ export = [
 	{
 		name:				"Sweater Shop",
 		desc:				"Capitalism at its finest.",
-		costCoefficient:	2.5,
-		costExponent:		7,
+		cost:				new Decimal("25_000_000"),
 		upgrade: {
 			multiBoost: {
 				[$Unit.KNITTER]:	4,
@@ -137,8 +127,7 @@ export = [
 	{
 		name:				"Larger Duffel Bags",
 		desc:				"The wool isn't gonna package itself!",
-		costCoefficient:	5,
-		costExponent:		7,
+		cost:				new Decimal("50_000_000"),
 		upgrade: {
 			multiBoost: {
 				[$Unit.SHEARER]:	1.5,
@@ -149,8 +138,7 @@ export = [
 	{
 		name:				"Relaxing Music",
 		desc:				"Calms sheep down while shearing.",
-		costCoefficient:	1.44,
-		costExponent:		8,
+		cost:				new Decimal("144_000_000"),
 		upgrade: {
 			multiBoost: {
 				[$Unit.SHEARER]:	2.5,
@@ -161,8 +149,7 @@ export = [
 	{
 		name:				"Customized Bells",
 		desc:				"Sheep don't like getting lost in the woods.",
-		costCoefficient:	3.5,
-		costExponent:		8,
+		cost:				new Decimal("350_000_000"),
 		upgrade: {
 			multiBoost: {
 				[$Unit.SHEPHERD]:	2.5,
