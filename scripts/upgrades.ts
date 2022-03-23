@@ -3,26 +3,91 @@ import {Units}		from "./classes";
 
 export = [
 	{
-		id:					"DoubleUp Shepherds",
+		name:				"DoubleUp Shepherds",
 		desc:				"2x Power!",
 		costCoefficient:	5,
 		costExponent:		3,
 		upgrade: {
 			multiBoost: {
-				[Units.SHEPHERD]: 1,
+				[Units.SHEPHERD]:	1,
 			}
 		}
-	}
+	},
+	
+	{
+		name:				"DoubleUp Shearers",
+		desc:				"2x Power!",
+		costCoefficient:	5,
+		costExponent:		4,
+		upgrade: {
+			multiBoost: {
+				[Units.SHEARER]:	1,
+			}
+		}
+	},
+	
+	{
+		name:				"Sheepdog Training",
+		desc:				"This guy can help herd the sheep.",
+		costCoefficient:	1,
+		costExponent:		5,
+		upgrade: {
+			multiBoost: {
+				[Units.SHEPHERD]:	1,
+			}
+		}
+	},
+	
+	{
+		name:				"Better Shears",
+		desc:				"These ones actually work!",
+		costCoefficient:	1.5,
+		costExponent:		5,
+		upgrade: {
+			multiBoost: {
+				[Units.SHEARER]:	1,
+			}
+		}
+	},
+	
+	{
+		name:				"DoubleUp Knitters",
+		desc:				"2x Power!",
+		costCoefficient:	4,
+		costExponent:		5,
+		upgrade: {
+			multiBoost: {
+				[Units.KNITTER]:	1,
+			}
+		}
+	},
+	
+	{
+		name:				"Reinforced Ingot Shears",
+		desc:				"These shears contain a LOT of copper.",
+		costCoefficient:	4,
+		costExponent:		5,
+		upgrade: {
+			multiBoost: {
+				[Units.SHEARER]:	1,
+			}
+		}
+	},
+	
+	{
+		name:				"Faster Knitting",
+		desc:				"Is this possible?",
+		costCoefficient:	6,
+		costExponent:		5,
+		upgrade: {
+			multiBoost: {
+				[Units.KNITTER]:	2,
+			}
+		}
+	},
 ];
 
 /*
-<p id="shepm0" class="upgrade">DOUBLEUP SHEPHERDS (5k)</p>
-<p id="shrrm0" class="upgrade">DOUBLEUP SHEARERS (50k)</p>
-<p id="shepm1" class="upgrade">SHEEPDOG TRAINING (100k)</p>
-<p id="shrrm1" class="upgrade">BETTER SHEARS (150k)</p>
-<p id="kntm0" class="upgrade">DOUBLEUP KNITTERS (400k)</p>
-<p id="shrrm2" class="upgrade">REINFORCED INGOT SHEARS (400k)</p>
-<p id="kntm1" class="upgrade">FASTER KNITTING (600k)</p>
 <p id="shepm2" class="upgrade">NOW HIRING SHEPHERDS (1Mil)</p>
 <p id="sbomb" class="upgrade">SHEEP BOMB ABILITY (2Mil)</p>
 <p id="drill" class="upgrade"><span title="You can hold D to click rapidly">DRILL SHEARS ABILITY (5Mil)</span></p>

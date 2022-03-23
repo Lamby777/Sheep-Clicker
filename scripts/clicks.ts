@@ -25,6 +25,7 @@ var spizmulti;
 var cl;
 var mwbps;
 var mwbpc;
+const m = document.getElementById("mus");
 
 c = 0;          // Bags of wool
 drill = false;  // Don't start with it!
@@ -70,101 +71,48 @@ $("div#clickspace").click(function () {
 	c += wbpc;
 });
 
+$(document).click(function () {
+	m.play();
+});
+
 $(document).keypress(function (e) {
-	if (e.which == 57 || e.which == 48 || e.which == 99 || e.which == 109) {
-	} else if (e.which == 49) {
-		if (sbomb) {
-			sbomb = false;
-			for (i = 0; i < 30; i++) {
-				var r = Math.random();
-				if (r < 0.6) {
-					sheps++;
-				} else if (r < 0.9) {
-					shrr++;
-				} else if (r < 1) {
-					knt++;
+	switch (e.key) {
+		case "1":
+			if (sbomb) {
+				sbomb = false;
+				for (i = 0; i < 30; i++) {
+					var r = Math.random();
+					if (r < 0.6) {
+						sheps++;
+					} else if (r < 0.9) {
+						shrr++;
+					} else if (r < 1) {
+						knt++;
+					}
 				}
-			}
-		} else {
-			alert("You don't have a Sheep Bomb!");
-		}
-	} else if (e.which == 98) {
-		if (last == "sheps") {
+			} else {
+				alert("You don't have a Sheep Bomb!");
+			} break;
+		
+		case "b":
 			var i = 0;
-			while (true) {
+			do {
 				var shepcost = Math.ceil((sheps * 9 + 3) / 4) + 15;
-				if (c >= shepcost) {
-					sheps++;
-					c -= shepcost;
-				}
+				
+				sheps++;
+				c -= shepcost;
+			} while (c >= shepcost);
+			break;
 
-				else {
-					break;
-				}
-			}
-			return 0;
-		} else if (last == "shrr") {
-			var i = 0;
-			while (true) {
-				var shrrcost = Math.ceil((shrr * 6 + 1) / 3) + Math.ceil(shrr / 3);
-				if (c >= shrrcost) {
-					shrr++;
-					c -= shrrcost;
-				}
+		case "d":
+			if (drill) c += wbpc;
+			break;
 
-				else {
-					break;
-				}
-			}
-		} else if (last == "knt") {
-			var i = 0;
-			while (true) {
-				var kntcost = Math.ceil((knt * 439 + 490) * 0.9) + knt + 219000;
-				if (c >= kntcost) {
-					knt++;
-					c -= kntcost;
-				}
-
-				else {
-					break;
-				}
-			}
-		} else if (last == "ss") {
-			var i = 0;
-			while (true) {
-				var sscost = Math.floor(ss ** 4 * 0.9) + ss + 10000000;
-				if (c >= sscost) {
-					ss++;
-					c -= sscost;
-				}
-
-				else {
-					break;
-				}
-			}
-		} else if (last == "spiz") {
-			var i = 0;
-			while (true) {
-				var spizcost = spiz ** 7 + 500000000;
-				if (c >= spizcost) {
-					spiz++;
-					c -= spizcost;
-				}
-
-				else {
-					break;
-				}
-			}
-		}
-
-	} else if (e.which == 100) {
-		if (drill) {
-			c += wbpc;
-		}
-	} else {
-		console.log(e.which);
+		case "m":
+			if (m.paused)	m.play();
+			else			m.pause();
+			break;
 	}
-
 });
 
 $("p#shepherd").click(function () {
@@ -176,58 +124,6 @@ $("p#shepherd").click(function () {
 		$("p#shepherd").css("background", "red");
 		setTimeout(function () {
 			$("p#shepherd").css("background", "");
-		}, 300);
-	}
-});
-
-$("p#shearer").click(function () {
-	if (c >= shrrcost) {
-		shrr++;
-		c -= shrrcost;
-		last = "shrr"
-	} else {
-		$("p#shearer").css("background", "red");
-		setTimeout(function () {
-			$("p#shearer").css("background", "");
-		}, 300);
-	}
-});
-
-$("p#knitter").click(function () {
-	if (c >= kntcost) {
-		knt++;
-		c -= kntcost;
-		last = "knt";
-	} else {
-		$("p#knitter").css("background", "red");
-		setTimeout(function () {
-			$("p#knitter").css("background", "");
-		}, 300);
-	}
-});
-
-$("p#ssitter").click(function () {
-	if (c >= sscost) {
-		ss++;
-		c -= sscost;
-		last = "ss";
-	} else {
-		$("p#ssitter").css("background", "red");
-		setTimeout(function () {
-			$("p#ssitter").css("background", "");
-		}, 300);
-	}
-});
-
-$("p#spiz").click(function () {
-	if (c >= spizcost) {
-		spiz++;
-		c -= spizcost;
-		last = "spiz";
-	} else {
-		$("p#spiz").css("background", "red");
-		setTimeout(function () {
-			$("p#spiz").css("background", "");
 		}, 300);
 	}
 });
