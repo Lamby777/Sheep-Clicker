@@ -1,18 +1,41 @@
+body {
+    background-image: url("src/connectwork.png");
+	color: white;
+	/* Full height */
+    height: 100%; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
 .ct {
 	text-align: center;
 }
+
 .fixed {
 	position:fixed;
 	width:100%;
 	top:0;
 	left:0;
 }
+
 .ctimg {
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
 }
+
 div#clickspace {
 	background: #f0f0f0;
 	display: block;
@@ -22,9 +45,11 @@ div#clickspace {
 	height: 100vh;
 	text-align: center;
 }
+
 img#sheep {
 	cursor: pointer;
 }
+
 #bbsheps {
 	color: black;
 	background: #ccffcc;
@@ -53,26 +78,6 @@ img#sheep {
 
 .upgrade {
 	display: block;
-}
-
-body {
-    background-image: url("src/connectwork.png");
-	color: white;
-	/* Full height */
-    height: 100%; 
-
-    /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
 }
 
 #tbt, #topbar {

@@ -28,9 +28,25 @@ class ScientificNotation {
         this.coefficient = coefficient;
         this.exponent = exponent;
     }
-    static equals(first, second) {
-        return (first.coefficient == second.coefficient
-            && first.exponent == second.exponent);
+    equals(other) {
+        return (this.coefficient == other.coefficient
+            && this.exponent == other.exponent);
+    }
+    less(other) {
+        if (this.exponent < other.exponent)
+            return true;
+        else if (this.coefficient < other.coefficient)
+            return true;
+        else
+            return false;
+    }
+    greater(other) {
+        if (this.exponent > other.exponent)
+            return true;
+        else if (this.coefficient > other.coefficient)
+            return true;
+        else
+            return false;
     }
     static format(sn) {
         return "" +

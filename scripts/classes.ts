@@ -36,15 +36,34 @@ class ScientificNotation {
 		public exponent:	number
 	) {}
 
-	// probably gonna raise an exception at higher numbers...
-	// that's why I made this class, anyway.
-	static equals(	first:	ScientificNotation,
-				 	second:	ScientificNotation): boolean {
-		
-		return (	first.coefficient	== second.coefficient
-				&&	first.exponent		== second.exponent);
+	equals(other: ScientificNotation): boolean {
+		// Very simple comparison	
+		return (	this.coefficient	== other.coefficient
+				&&	this.exponent		== other.exponent);
 	}
 
+	less(other: ScientificNotation): boolean {
+		// If exponents are unequal, compare them.
+		if (this.exponent < other.exponent) return true;
+			
+		// Otherwise, compare coefficients
+		else if (this.coefficient < other.coefficient) return true;
+
+		// If both statements haven't returned yet
+		else return false;
+	}
+
+	greater(other: ScientificNotation): boolean {
+		// If exponents are unequal, compare them.
+		if (this.exponent > other.exponent) return true;
+			
+		// Otherwise, compare coefficients
+		else if (this.coefficient > other.coefficient) return true;
+
+		// If both statements haven't returned yet
+		else return false;
+	}
+	
 	static format(sn: ScientificNotation): string {
 		return "" +
 				sn.coefficient.toFixed(3) +
