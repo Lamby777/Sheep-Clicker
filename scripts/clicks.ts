@@ -1,6 +1,16 @@
 /*	################################
 	#	  Dexie's Sheep Clicker	   #
 	################################	*/
+
+import {qstr}	from "./dx";
+
+const queries = qstr.parse();
+qstr.clear();
+
+const dev = queries["dev"] === "1";
+
+const FPS = 20;
+const DELAY = 1000 / FPS;
 export let c;
 var dxb = 0;
 var drill;
@@ -75,7 +85,7 @@ $(document).click(function () {
 	m.play();
 });
 
-$(document).keypress(function (e) {
+document.addEventListener("keypress", (e) => {
 	switch (e.key) {
 		case "1":
 			if (sbomb) {
@@ -104,13 +114,27 @@ $(document).keypress(function (e) {
 			} while (c >= shepcost);
 			break;
 
-		case "d":
+		case "d": // might only run once, since ported from jquery
 			if (drill) c += wbpc;
 			break;
 
 		case "m":
 			if (m.paused)	m.play();
 			else			m.pause();
+			break;
+		
+		case "-":
+			if (dev)
+				console = window.open("/console.html", "_blank",
+										"width=400,height=400");
+			break;
+
+		case "0":
+			if (dev) sheps++;
+			break;
+		
+		case "9":
+			if (dev) c += c * 2;
 			break;
 	}
 });
@@ -127,3 +151,26 @@ $("p#shepherd").click(function () {
 		}, 300);
 	}
 });
+
+
+
+// Add wool bags to total
+
+setInterval(() => {
+	c += (wbps/FPS);
+}, DELAY);
+
+// Saving
+/* setInterval(function() {
+	localStorage.setItem("saves", [
+		c,
+		sheps,
+		shrr,
+		knt,
+		drill ? 1 : 0,
+		sbomb ? 1 : 0,
+		shepmulti,
+		shrrmulti,
+		kntmulti,
+	]);
+}, 15000); */

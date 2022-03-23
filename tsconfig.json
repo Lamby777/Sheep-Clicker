@@ -1,13 +1,13 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
+		"module": "amd",
 		"removeComments": true,
 		"noImplicitAny": true,
 		"preserveConstEnums": true,
 		"target": "esnext",
 		"sourceMap": false,
 		"esModuleInterop": true,
-		"resolveJsonModule": true
+		"outFile": "./scripts/comp.js"
 	},
 	"exclude": [
 		"node_modules"

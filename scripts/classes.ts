@@ -89,6 +89,23 @@ export enum Units {
 	PIZZAGUY,
 }
 
+export const costAlgos = [
+	// Shepherd
+	(lv) => (Math.ceil((lv * 9 + 3) / 4) + 15),
+	
+	// Shearer
+	(lv) => (Math.ceil((lv * 6 + 1) / 3) + Math.ceil(lv / 3)),
+
+	// Knitter
+	(lv) => (Math.ceil((lv * 439 + 490) * 0.9) + lv + 219000),
+
+	// Babysitter
+	(lv) => (Math.floor(lv ** 4 * 0.9) + lv + 10000000),
+
+	// Sheep Pizza
+	(lv) => (spiz ** 7 + 500000000),
+];
+
 // Initialize upgrades
 upgradeDB.forEach((val) => {
 	//
