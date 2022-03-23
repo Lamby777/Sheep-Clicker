@@ -23,6 +23,14 @@ const BLESSING_CAPS = [
 	new ScientificNotation(2.5, 14),	// 250 T
 ]
 
+const [
+	woolBagsDisplay,
+	maxBagsDisplay,
+] = [
+	document.getElementById("pts"),
+	document.getElementById("max"),
+];
+
 export let max = BLESSING_CAPS[0];
 export let c;
 var dxb = 0;
@@ -46,8 +54,6 @@ var kntmulti;
 var ssmulti;
 var spizmulti;
 var cl;
-var mwbps;
-var mwbpc;
 const m = document.getElementById("mus");
 const dxbElement = document.getElementById("dxb");
 
@@ -74,20 +80,13 @@ setInterval(() => {
 	kntcost		= COST_ALGORITHMS[Units.KNITTER](knt);
 	sscost		= COST_ALGORITHMS[Units.BABYSITTER](ss);
 	spizcost	= COST_ALGORITHMS[Units.PIZZAGUY](spiz);
-	wbps = ((shrr * 2 * shrrmulti) + (knt * 100 * kntmulti) + (ss * 1000000 * ssmulti)) * (spiz * spizmulti > 0 ? spiz * spizmulti : 1);
-	mwbps = wbps.toLocaleString();
+	wbps		= ((shrr * 2 * shrrmulti) + (knt * 100 * kntmulti) + (ss * 1000000 * ssmulti)) * (spiz * spizmulti > 0 ? spiz * spizmulti : 1);
 	wbpc = (sheps * shepmulti + 1) * (spiz * spizmulti > 0 ? spiz * spizmulti : 1);
-	mwbpc = wbpc.toLocaleString();
-	cl = Math.floor(c).toLocaleString();
-	$("#pts").text("You have " + cl + " bags of wool!");
-	$("#max").text("Max wool: " + max.toLocaleString());
+	woolBagsDisplay.innterText	= `You have ${c.toLocaleString()} bags of wool!`;
+	maxBagsDisplay.innterText	= `Max wool: ${max.toLocaleString()}`;
 	$("p#shepherd").text("[Shepherd] Inventory: " + sheps + " Cost: " + shepcost);
-	$("p#shearer").text("[Shearer] Inventory: " + shrr + " Cost: " + shrrcost);
-	$("p#knitter").text("[Wool Knitter] Inventory: " + knt + " Cost: " + kntcost);
-	$("p#ssitter").text("[Sheep-sitter] Inventory: " + ss + " Cost: " + sscost);
-	$("p#spiz").text("[Sheep Pizza] Inventory: " + spiz + " Cost: " + spizcost);
-	$("p#wbps").text("WBpS: " + mwbps);
-	$("p#wbpc").text("WBpC: " + mwbpc);
+	$("p#wbps").text("WBpS: " + wbps.toLocaleString());
+	$("p#wbpc").text("WBpC: " + wbpc.toLocaleString());
 }, FPS);
 
 $("div#clickspace").click(function () {
