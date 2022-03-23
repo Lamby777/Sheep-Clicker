@@ -3,8 +3,8 @@
 	################################	*/
 
 import {qstr}				from "./dx";
-import {ScientificNotation,
-		units,	$Unit}	from "./classes";
+import {units,	$Unit}		from "./classes";
+import {Decimal}			from "./decimal";
 
 const queries = qstr.parse();
 qstr.clear();
@@ -15,11 +15,11 @@ const FPS = 20;
 const DELAY = 1000 / FPS;
 
 const BLESSING_CAPS = [
-	new ScientificNotation(2, 8),		// 200 Mil
-	new ScientificNotation(1, 9),		// 1 Bil
-	new ScientificNotation(5, 11),		// 500 Bil
-	new ScientificNotation(2, 12),		// 2 T
-	new ScientificNotation(2.5, 14),	// 250 T
+	new Decimal("200_000_000"),
+	new Decimal("1_000_000_000"),
+	new Decimal("500_000_000_000"),
+	new Decimal("2_000_000_000_000"),
+	new Decimal("250_000_000_000_000"),
 ];
 
 const [
@@ -47,8 +47,8 @@ for (let i = 0; i < units.length; i++) {
 	elem.addEventListener("click", () => {
 		let cost = getCostOfNext(i);
 		
-		if (c >= cost) {
-			c -= cost;
+		if (c.gte(cost)) {
+			c = c.minus(cost);
 			uCounts[i]++;
 			last = i;
 		} else {
@@ -62,8 +62,8 @@ for (let i = 0; i < units.length; i++) {
 	uElements[i]	= elem;
 }
 
-export let max = BLESSING_CAPS[0];
-export let c			= 0; // Bags of wool
+export let max			= BLESSING_CAPS[0];
+export let c			= new Decimal(0); // Bags of wool
 var dxb					= 0;
 var drill				= false;
 var sbomb				= false;
@@ -109,8 +109,8 @@ document.addEventListener("keypress", (e) => {
 		
 		case "b":
 			let cost = getCostOfNext(last);
-			while (c >= cost) {
-				c -= cost;
+			while (c.gte(cost)) {
+				c = c.minus(cost);
 				uCounts[last]++;
 			}
 			break;
@@ -135,7 +135,7 @@ document.addEventListener("keypress", (e) => {
 			break;
 		
 		case "9":
-			if (dev) c += c * 2;
+			if (dev) c = c.plus(c.times(2));
 			break;
 	}
 });
@@ -168,7 +168,7 @@ function getPizzaMulti() {
 // Dexie's Blessing
 dxbElement.addEventListener("click", () => {
 	if (c >= max) {
-		c = 0;
+		c = new Decimal(0);
 		dxb++;
 		var presences = [" magical", " mysterious", " mystical",
 						 " dangerous", "n adventurous"]
@@ -184,8 +184,8 @@ dxbElement.addEventListener("click", () => {
 });
 
 function addWool(amount: number): void {
-	c += amount;
-	if (c > max) c = max;
+	c = c.plus(amount);
+	if (c.gt(max)) c = max;
 }
 
 function fireSheepBomb() {
