@@ -1,6 +1,6 @@
 // This file is like a JSON, but better :)
 import {$Unit}			from "./classes";
-import Decimal			from "./decimal.js";
+import Decimal			from "./_decimal";
 
 export default [
 	{

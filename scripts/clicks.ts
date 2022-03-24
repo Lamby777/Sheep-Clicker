@@ -4,7 +4,7 @@
 
 import {qstr}			from "./dx";
 import {units,	$Unit}	from "./classes";
-import Decimal			from "./decimal.js";
+import Decimal			from "./_decimal";
 
 alert("hey");
 
