@@ -1,8 +1,15 @@
 {
 	"scripts": {
-		"build": "webpack --watch"
+		"build": "browserify scripts/clicks.js -o comp.js"
 	},
 	"devDependencies": {
 		"typescript": "^4.6.2"
+	},
+	"dependencies": {
+		"babelify": "^10.0.0",
+		"browserify": "^17.0.0",
+		"gulp": "^4.0.2",
+		"vinyl-buffer": "^1.0.1",
+		"vinyl-source-stream": "^2.0.0"
 	}
 }
