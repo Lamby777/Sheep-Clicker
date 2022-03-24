@@ -39,7 +39,7 @@ export const qstr = {
 	}
 }
 
-export function parseQ(queryString: string) {
+function parseQ(queryString: string) {
 	const dict: Record<string, string> = {};
 	
 	if (queryString.indexOf("?") === 0) {
