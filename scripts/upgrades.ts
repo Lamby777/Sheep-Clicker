@@ -1,8 +1,8 @@
 // This file is like a JSON, but better :)
-import {$Unit}		from "./classes";
-import Decimal		from "./decimal";
+import {$Unit}			from "./classes";
+import Decimal			from "./decimal.js";
 
-export = [
+export default [
 	{
 		name:				"DoubleUp Shepherds",
 		desc:				"2x Power!",

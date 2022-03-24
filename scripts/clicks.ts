@@ -2,9 +2,9 @@
 	#	  Dexie's Sheep Clicker	   #
 	################################	*/
 
-import {qstr}				from "./dx";
-import {units,	$Unit}		from "./classes";
-import Decimal				from "./decimal";
+import {qstr}			from "./dx";
+import {units,	$Unit}	from "./classes";
+import Decimal			from "./decimal.js";
 
 alert("hey");
 
@@ -12,6 +12,10 @@ const queries = qstr.parse();
 qstr.clear();
 
 const dev = queries["dev"] === "1";
+
+const cont = document.getElementById("ctContainer");
+const csound = (document.getElementById("cs") as HTMLAudioElement);
+csound.volume = 0.4;
 
 const FPS = 20;
 const DELAY = 1000 / FPS;
@@ -97,6 +101,12 @@ document.getElementById("clickspace")
 		.addEventListener("click", () => {
 	addWool(wbpc);
 	m.play();
+	
+	cont.style.width = "49%";
+	csound.play();
+	setTimeout(() => {
+		cont.style.width = "50%";
+	}, 50);
 });
 
 document.addEventListener("keypress", (e) => {
