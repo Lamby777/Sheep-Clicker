@@ -42,7 +42,7 @@ export const uCounts:		number[] = [];
 export const uMultis:		number[] = [];
 export const uElements:		HTMLElement[] = [];
 
-for (let i = 0; i < units.length; i++) {
+units.forEach((v, i) => {
 	uCounts[i]		= 0;
 	uMultis[i]		= 1;
 
@@ -64,7 +64,7 @@ for (let i = 0; i < units.length; i++) {
 	});
 	
 	uElements[i]	= elem;
-}
+});
 
 export let max			= BLESSING_CAPS[0];
 export let c			= new Decimal(0); // Bags of wool
