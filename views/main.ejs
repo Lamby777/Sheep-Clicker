@@ -5,25 +5,19 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
 	<title>Sheep Clicker</title>
-	<link href="style.css" rel="stylesheet" type="text/css" />
-	<script src="packed.js" defer></script>
-	<!--script src="scripts/_decimal.js"	type="module"></script>
-	<script src="scripts/dx.js"			type="module"></script>
-	<script src="scripts/classes.js"	type="module"></script>
-	<script src="scripts/upgrades.js"	type="module"></script>
-	<script src="scripts/clicks.js"		type="module"></script-->
+<!--link href="/style.css" rel="stylesheet"
+	type="text/css" /-->
+	<script src="/js/packed.js" defer></script>
 </head>
 
 <body>
 	<div id="topbar" class="fixed">
-<center>
-		<p id="tbt">Sheep Clicker version
+		<p id="tbt" class="ct">Sheep Clicker version
 			<span class="red" id="ver">b8</span> by
 			<a href="https://repl.it/@Lamby777" class="hidelink white">
 				DexieTheSheep
 			</a>
 		</p>
-</center>
 	</div>
 	<br><br><br><br>
 	<div id="clickspace" oncontextmenu="return false;">
@@ -37,12 +31,14 @@
 		</h4>
 	</span>
 	<audio id="mus" loop>
-		<source src="src/soundscape.mp3" type="audio/mpeg">
+		<source src="/media/soundscape.mp3" type="audio/mpeg">
 	</audio>
 	<audio id="cs">
 		<source src="http://dight310.byu.edu/media/audio/FreeLoops.com/5/5/Mouse%20Click%20Fast.wav-23232-Free-Loops.com.mp3" type="audio/mpeg">
 	</audio>
-	<img id="sheep" class="ctimg" src="src/sheep.jpeg"></img>
+	<div id="clickarea">
+	<img id="sheep" class="ct" src="/media/sheep.jpeg"></img>
+	</div>
 	<br/><br/>
 	<span title="WBpC is how many bags of wool you get each time you click the big sheep to shear him. You can increase your WBpC by buying Shepherds or buying any upgrade that directly (WBpC boost) or indirectly (Shepherd boost, and some other stuff) helps you gain WBpC"><p id="wbpc">WBpC: 0</p></span>
 	<span title="WBpS is how many bags of wool you get per second, automatically. You can increase your WBpS by buying certain upgrades, or by buying any game asset except Shepherd. (Shepherd increases WBpC)"><p id="wbps">WBpS: 0</p></span>

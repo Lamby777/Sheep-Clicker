@@ -1,5 +1,5 @@
 body {
-    background-image: url("src/connectwork.png");
+    background-image: url("/dist/media/connectwork.png");
 	color: white;
 	/* Full height */
     height: 100%; 
@@ -20,6 +20,10 @@ body {
 
 .ct {
 	text-align: center;
+	img, & > img {
+    	display: block;
+    	margin: inherit auto;
+	}
 }
 
 .fixed {
@@ -27,13 +31,6 @@ body {
 	width:100%;
 	top:0;
 	left:0;
-}
-
-.ctimg {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    width: 50%;
 }
 
 div#clickspace {
@@ -105,8 +102,8 @@ img#sheep {
 }
 
 .fixeddown {
-			position:fixed;
-			width:100%;
-			bottom:0;
-			left:0;
+	position:fixed;
+	width:100%;
+	bottom:0;
+	left:0;
 }

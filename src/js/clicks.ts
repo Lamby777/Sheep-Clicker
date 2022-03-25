@@ -6,14 +6,12 @@ import {qstr}			from "./dx";
 import {units,	$Unit}	from "./classes";
 import Decimal			from "./_decimal";
 
-alert("hey");
-
 const queries = qstr.parse();
 qstr.clear();
 
 const dev = queries["dev"] === "1";
 
-const cont = document.getElementById("ctContainer");
+const cont = (document.getElementById("clickarea") as HTMLDivElement);
 const csound = (document.getElementById("cs") as HTMLAudioElement);
 csound.volume = 0.4;
 
@@ -102,10 +100,10 @@ document.getElementById("clickspace")
 	addWool(wbpc);
 	m.play();
 	
-	cont.style.width = "49%";
+	cont.style.width = "99%";
 	csound.play();
 	setTimeout(() => {
-		cont.style.width = "50%";
+		cont.style.width = "100%";
 	}, 50);
 });
 
