@@ -2,6 +2,6 @@
     deps = [
         pkgs.nodejs-16_x
 		pkgs.nodePackages.typescript
-		pkgs.nodePackages.browserify
+		pkgs.nodePackages.parcel-bundler
     ];
 }

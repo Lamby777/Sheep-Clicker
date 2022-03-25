@@ -1,12 +1,13 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
-		"target": "esnext",
+		"module": "es6",
+		"moduleResolution": "node",
+		"target": "es5",
+		"allowJs": true,
 		"removeComments": true,
 		"noImplicitAny": true,
-		"preserveConstEnums": true,
 		"sourceMap": false,
-		"esModuleInterop": true
+		"esModuleInterop": true,
 	},
 	"exclude": [
 		"node_modules"

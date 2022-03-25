@@ -95,7 +95,7 @@ export class ScientificNotation {
 	}
 }
 
-export enum $Unit {
+export const enum $Unit {
 	SHEPHERD,
 	SHEARER,
 	KNITTER,
@@ -118,7 +118,8 @@ export const units = [
 	new Unit("Shepherd", "These guys can help you manage your business.",
 		(lv) => (Math.ceil((lv * 9 + 3) / 4) + 15)),
 	
-	new Unit("Shearer", "Shearers are trained for this task. Leave it to the pros!",
+	new Unit("Shearer", "Shearers are trained for this task. " +
+						"Leave it to the pros!",
 		(lv) => (Math.ceil((lv * 6 + 1) / 3) + Math.ceil(lv / 3))),
 			
 	new Unit("Knitter", "The kind knitters down the street have " +
