@@ -156,14 +156,81 @@ export default [
 			}
 		}
 	},
+	
+	{
+		name:				"Customer Service",
+		desc:				"And yet, still no refunds allowed.",
+		cost:				new Decimal("470_000_000"),
+		upgrade: {
+			multiBoost: {
+				[$Unit.KNITTER]:	2.5,
+			}
+		}
+	},
+	
+	{
+		name:				"Magical Shears",
+		desc:				"These shears... ACTUALLY work... hopefully?",
+		cost:				new Decimal("650_000_000"),
+		upgrade: {
+			multiBoost: {
+				[$Unit.SHEARER]:	5,
+			}
+		}
+	},
+	
+	{
+		name:				"Shepherd University",
+		desc:				"Better training.",
+		cost:				new Decimal("900_000_000"),
+		upgrade: {
+			multiBoost: {
+				[$Unit.SHEPHERD]:	6,
+			}
+		}
+	},
+	
+	{
+		name:				"Specialized Looms",
+		desc:				"Faster clothing production.",
+		cost:				new Decimal("1_500_000_000"),
+		upgrade: {
+			multiBoost: {
+				[$Unit.KNITTER]:	15,
+			}
+		}
+	},
+	
+	{
+		name:				"Wool Duplication Liquid",
+		desc:				"Wait, doesn't this mean less money for us?",
+		cost:				new Decimal("2_000_000_000"),
+		upgrade: {
+			multiBoost: {
+				[$Unit.SHEARER]:	10,
+			}
+		}
+	},
+	
+	{
+		name:				"Board Games for Lambs",
+		desc:				"More entertainment while being taken care of.",
+		cost:				new Decimal("10_000_000_000"),
+		upgrade: {
+			multiBoost: {
+				[$Unit.BABYSITTER]:	1.5,
+			}
+		}
+	},
+	
+	{
+		name:				"Sheep Playgrounds",
+		desc:				"Sheep swings, sheep slides, and sheep see-saws.",
+		cost:				new Decimal("25_000_000_000"),
+		upgrade: {
+			multiBoost: {
+				[$Unit.BABYSITTER]:	3,
+			}
+		}
+	},
 ];
-
-/*
-<p id="kntm3" class="upgrade">CUSTOMER SERVICE (470Mil)</p>
-<p id="shrrm5" class="upgrade">MAGICAL SHEARS (650Mil)</p>
-<p id="shepm4" class="upgrade">SHEPHERD COLLEGE (900Mil)</p>
-<p id="kntm4" class="upgrade">WOOL WEAVING LOOM (1.5Bil)</p>
-<p id="shrrm6" class="upgrade">PERMANENT WOOL (2Bil)</p>
-<p id="ssm0" class="upgrade">BOARD GAMES FOR LAMBS (10Bil)</p>
-<p id="ssm1" class="upgrade">SHEEP PLAYGROUND (25Bil)</p>
-*/
