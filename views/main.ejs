@@ -11,6 +11,7 @@
 </head>
 
 <body>
+	<!-- Header -->
 	<div id="topbar" class="fixed">
 		<p id="tbt" class="ct">Sheep Clicker version
 			<span class="red" id="ver">b8</span> by
@@ -30,12 +31,6 @@
 			Max wool:
 		</h4>
 	</span>
-	<audio id="mus" loop>
-		<source src="/media/soundscape.mp3" type="audio/mpeg">
-	</audio>
-	<audio id="cs">
-		<source src="http://dight310.byu.edu/media/audio/FreeLoops.com/5/5/Mouse%20Click%20Fast.wav-23232-Free-Loops.com.mp3" type="audio/mpeg">
-	</audio>
 	<div id="clickarea">
 	<img id="sheep" class="ct" src="/media/sheep.jpeg"></img>
 	</div>
@@ -44,33 +39,42 @@
 	<span title="WBpS is how many bags of wool you get per second, automatically. You can increase your WBpS by buying certain upgrades, or by buying any game asset except Shepherd. (Shepherd increases WBpC)"><p id="wbps">WBpS: 0</p></span>
 	<br/>
 	</div>
-	<center>
-	<div id="store">
-	<p id="shepherd" class="supgrade">
-		[Shepherd]
-	</p>
-	<p id="shearer" class="supgrade">
-		[Shearer]
-	</p>
-	<p id="knitter" class="supgrade">
-		[Wool Knitter]
-	</p>
-	<p id="ssitter" class="supgrade">
-		[Sheep-sitter]
-	</p>
-	<p id="spiz" class="supgrade">
-		[Sheep Pizza]
-	</p>
-	<p id="dxb" class="supgrade">DEXIE'S BLESSING 1 (200Mil)</p>
-	<br><br><br>
-	<p id="bbsheps" class="cpu">Key B = Bulk buy last bought item</p>
-	<p id="bbli bbsheps" class="mobile">{Bulk Buy last item}</p>
-	<h2>Upgrades</h2>
-		//
+	<div class="ct">
+		<div id="store">
+		<p id="shepherd" class="supgrade">
+			[Shepherd]
+		</p>
+		<p id="shearer" class="supgrade">
+			[Shearer]
+		</p>
+		<p id="knitter" class="supgrade">
+			[Wool Knitter]
+		</p>
+		<p id="ssitter" class="supgrade">
+			[Sheep-sitter]
+		</p>
+		<p id="spiz" class="supgrade">
+			[Sheep Pizza]
+		</p>
+		<p id="dxb" class="supgrade">DEXIE'S BLESSING 1 (200Mil)</p>
+		<br><br><br>
+		<p id="bbsheps" class="cpu">Key B = Bulk buy last bought item</p>
+		<p id="bbli bbsheps" class="mobile">{Bulk Buy last item}</p>
+		<h2>Upgrades</h2>
+			//
+		</div>
+		</div>
+		</div>
 	</div>
-	</div>
-	</div>
-	</center>
+
+	
+	<!-- Audio -->
+	<audio id="mus" volume="0.4" loop>
+		<source src="/media/soundscape.mp3" type="audio/mpeg">
+	</audio>
+	<audio id="cs">
+		<source src="http://dight310.byu.edu/media/audio/FreeLoops.com/5/5/Mouse%20Click%20Fast.wav-23232-Free-Loops.com.mp3" type="audio/mpeg">
+	</audio>
 </body>
 
 </html>

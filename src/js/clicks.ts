@@ -6,17 +6,16 @@ import {qstr}			from "./dx";
 import {units,	$Unit}	from "./classes";
 import Decimal			from "./_decimal";
 
+const FPS = 20;
+const DELAY = 1000 / FPS;
 const queries = qstr.parse();
 qstr.clear();
 
 const dev = queries["dev"] === "1";
-
 const cont = (document.getElementById("clickarea") as HTMLDivElement);
 const csound = (document.getElementById("cs") as HTMLAudioElement);
-csound.volume = 0.4;
 
-const FPS = 20;
-const DELAY = 1000 / FPS;
+alert(new Decimal("1_500_000_000").e);
 
 const BLESSING_CAPS = [
 	new Decimal("200_000_000"),

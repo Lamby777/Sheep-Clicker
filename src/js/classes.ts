@@ -5,6 +5,7 @@ const NUMBER_SUFFIXES = [	"", "k", "Mil", "Bil", "T", "Q",
 							"ℚ", "S", "7̶", "O", "N", "D"	];
 
 import upgradeDB		from "./upgrades";
+import Decimal			from "./_decimal";
 
 interface UpgradeTable {
 	// Amount added to multipliers
@@ -15,11 +16,11 @@ class Upgrade {
 	public readonly id:				number;
 	public readonly name:			string;
 	public readonly description:	string;
-	public readonly cost:			ScientificNotation;
+	public readonly cost:			Decimal;
 	public readonly action:			UpgradeTable | (() => void);
 
 	makeHTMLElement(): HTMLElement {
-		const fCost = ScientificNotation.format(this.cost);
+		const fCost = formatDecimal(this.cost);
 		const element = document.createElement("p");
 		element.classList.add("upgrade");
 		element.innerText = `${this.name} (${fCost})`;
@@ -30,69 +31,18 @@ class Upgrade {
 
 // Had to rename this class because I realized I
 // invented a math concept that already exists... ¯\_(ツ)_/¯
-export class ScientificNotation {
-	constructor(
-		public coefficient:	number,
-		public exponent:	number
-	) {}
+export function formatDecimal(dec: Decimal): string {
+	return `${dec.d[0].toFixed(3)}e${getDecimalSuffix(dec)}`
+}
 
-	static compare(	a: number | ScientificNotation,
-					b: number | ScientificNotation): number {
-		let aIsNum = a instanceof Number;
-		let bIsNum = a instanceof Number;
-		
-		if (aIsNum && bIsNum) {
-			// If both are primitive numbers, compare normally
-			return (a === b ? 0 :
-					a > b ? 1 : -1);
-		} else if (aIsNum) {
-			a //
-		}
-	}
+export function getDecimalSuffix(dec: Decimal): string {
+	// The "suffix bracket" of the number (goes up every 3 digits)
+	const exp3pair = Math.floor(dec.e / 3);
 
-	equals(other: ScientificNotation): boolean {
-		// Very simple comparison	
-		return (	this.coefficient	== other.coefficient
-				&&	this.exponent		== other.exponent);
-	}
-
-	less(other: ScientificNotation): boolean {
-		// If exponents are unequal, compare them.
-		if (this.exponent < other.exponent) return true;
-			
-		// Otherwise, compare coefficients
-		else if (this.coefficient < other.coefficient) return true;
-
-		// If both statements haven't returned yet
-		else return false;
-	}
-
-	greater(other: ScientificNotation): boolean {
-		// If exponents are unequal, compare them.
-		if (this.exponent > other.exponent) return true;
-			
-		// Otherwise, compare coefficients
-		else if (this.coefficient > other.coefficient) return true;
-
-		// If both statements haven't returned yet
-		else return false;
-	}
-	
-	static format(sn: ScientificNotation): string {
-		return "" +
-				sn.coefficient.toFixed(3) +
-				ScientificNotation.getSuffix(sn);
-	}
-
-	static getSuffix(sn: ScientificNotation): string {
-		// The "suffix bracket" of the number (goes up every 3 digits)
-		const exp3pair = Math.floor(sn.exponent / 3);
-
-		// If over 999 Decillion, just spit out the scientific notation
-		if (exp3pair <= NUMBER_SUFFIXES.length)
-			return NUMBER_SUFFIXES[exp3pair];
-		else return `e^${sn.exponent}`;
-	}
+	// If over 999 Decillion, just spit out the scientific notation
+	if (exp3pair <= NUMBER_SUFFIXES.length)
+		return NUMBER_SUFFIXES[exp3pair];
+	else return `e^${dec.e}`;
 }
 
 export const enum $Unit {
