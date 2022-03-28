@@ -67,14 +67,6 @@ function getDecimalSuffix(dec: Decimal): string {
 	else return `e${dec.e}`;
 }
 
-export const enum $Unit {
-	SHEPHERD,
-	SHEARER,
-	KNITTER,
-	BABYSITTER,
-	PIZZAGUY,
-}
-
 class Unit {
 	constructor(
 		public name:	string,

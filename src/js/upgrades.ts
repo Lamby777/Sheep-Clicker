@@ -1,5 +1,5 @@
 // This file is like a JSON, but better :)
-import {$Unit}			from "./classes";
+import {$Unit}			from "./enum";
 import Decimal			from "./_decimal";
 
 export default [

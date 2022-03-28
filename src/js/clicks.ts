@@ -4,8 +4,9 @@
 
 import {qstr}			from "./dx";
 import Decimal			from "./_decimal";
+import {$Unit}			from "./enum";
 import {
-	units,	$Unit,	formatDecimal,
+	units,	formatDecimal,
 }	from "./classes";
 
 const FPS = 20;
@@ -77,8 +78,8 @@ export let max			= BLESSING_CAPS[0];
 export let c			= new Decimal(0); // Bags of wool
 export let dxbLevel		= 0;
 let drillUnlocked		= false;
-var wbps:	number		= 0;
-var wbpc:	number;
+let wbps:	number		= 0;
+let wbpc:	number;
 let last				= $Unit.SHEPHERD; // Last unit purchased
 
 export let inventory = {
@@ -87,7 +88,8 @@ export let inventory = {
 
 
 setInterval(() => {
-	[wbps, wbpc] = [calculateWBPS(), calculateWBPC()];
+	wbps = calculateWBPS();
+	wbpc = calculateWBPC();
 	
 	woolBagsDisplay.innerText
 		= `You have ${c.toLocaleString()} bags of wool!`;
@@ -95,10 +97,10 @@ setInterval(() => {
 		= `Max wool: ${max.toLocaleString()}`;
 
 	// Update cost displays
-	for (let i = 0; i < units.length; i++) {
-		uElements[i].innerText =
-			`[Shepherd] Inventory: ${uCounts[i]} Cost: ${getCostOfNext(i)}`;
-	}
+	uElements.forEach((v, i) => {
+		v.innerText =
+			`[${$Unit[i]}] Hired: ${uCounts[i]} Cost: ${getCostOfNext(i)}`;
+	});
 
 	// Update income stats
 	wbpsDisplay.innerText = `WBpS: ${wbps.toLocaleString()}`;
@@ -164,11 +166,12 @@ document.addEventListener("keypress", (e) => {
 
 function calculateWBPS(): number {
 	// Algebraic function to find WBPS from unit amounts
-	return
-		((uCounts[$Unit.SHEARER]	* 2			* uMultis[$Unit.SHEARER]) +
+	const v = (((uCounts[$Unit.SHEARER]	* 2			* uMultis[$Unit.SHEARER]) +
 		(uCounts[$Unit.KNITTER]		* 100		* uMultis[$Unit.KNITTER]) +
 		(uCounts[$Unit.BABYSITTER]	* 1000000	* uMultis[$Unit.BABYSITTER]))
-			* getPizzaMulti();
+		* getPizzaMulti());
+	
+	return v;
 }
 
 function calculateWBPC(): number {
