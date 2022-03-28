@@ -10,8 +10,8 @@ import {
 
 const FPS = 20;
 const DELAY = 1000 / FPS;
-const queries = qstr.parse();
-qstr.clear();
+const queries = qstr.parseQ();
+qstr.clearQ();
 
 const dev = queries["dev"] === "1";
 const cont = (document.getElementById("clickarea") as HTMLDivElement);

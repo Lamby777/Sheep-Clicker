@@ -29,8 +29,6 @@ class Upgrade {
 	}
 }
 
-// Had to rename this class because I realized I
-// invented a math concept that already exists... ¯\_(ツ)_/¯
 export function formatDecimal(dec: Decimal): string {
 	return `${significantCoefficient(dec)}${getDecimalSuffix(dec)}`
 }
@@ -47,7 +45,7 @@ function significantCoefficient(dec: Decimal,
 	// Values with dedicated suffixes (like k, mil, etc.)
 	else if (dec.e) {
 		// Modulo str.length except map 0 to 3
-		const preDecimalDigits = (str.length) % 3;
+		let preDecimalDigits = (str.length) % 3;
 		if (preDecimalDigits === 0) preDecimalDigits = 3;
 		
 		return str.slice(0,preDecimalDigits) + "." +
