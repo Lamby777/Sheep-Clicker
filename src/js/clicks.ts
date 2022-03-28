@@ -14,8 +14,6 @@ const queries = qstr.parseQ();
 qstr.clearQ();
 
 const dev = queries["dev"] === "1";
-const cont = (document.getElementById("clickarea") as HTMLDivElement);
-const csound = (document.getElementById("cs") as HTMLAudioElement);
 
 const BLESSING_CAPS = [
 	new Decimal("200_000_000"),
@@ -30,16 +28,26 @@ const [
 	maxBagsDisplay,
 	wbpsDisplay,
 	wbpcDisplay,
+	cont,
+	csound,
+	musicElement,
+	dxbElement,
+	clickspace,
 ] = [
 	document.getElementById("pts"),
 	document.getElementById("max"),
 	document.getElementById("wbps"),
 	document.getElementById("wbpc"),
+	(document.getElementById("clickarea") as HTMLDivElement),
+	(document.getElementById("cs") as HTMLAudioElement),
+	(document.getElementById("mus") as HTMLAudioElement),
+	document.getElementById("dxb"),
+	document.getElementById("clickspace"),
 ];
 
-export const uCounts:		number[] = [];
-export const uMultis:		number[] = [];
-export const uElements:		HTMLElement[] = [];
+export const uCounts:		number[]		= [];
+export const uMultis:		number[]		= [];
+export const uElements:		HTMLElement[]	= [];
 
 units.forEach((v, i) => {
 	uCounts[i]		= 0;
@@ -62,26 +70,29 @@ units.forEach((v, i) => {
 		}
 	});
 	
-	uElements[i]	= elem;
+	uElements[i] = elem;
 });
 
 export let max			= BLESSING_CAPS[0];
 export let c			= new Decimal(0); // Bags of wool
-var dxb					= 0;
-var drill				= false;
-var sbomb				= false;
+export let dxbLevel		= 0;
+let drillUnlocked		= false;
 var wbps:	number		= 0;
 var wbpc:	number;
-const m = (document.getElementById("mus") as HTMLAudioElement);
-const dxbElement = document.getElementById("dxb");
+let last				= $Unit.SHEPHERD; // Last unit purchased
+
+export let inventory = {
+	sheepBomb: 0,
+}
 
 
-var last = 0; // Last thing bought default
 setInterval(() => {
-	wbps		= calculateWBPS();
-	wbpc		= calculateWBPC();
-	woolBagsDisplay.innerText	= `You have ${c.toLocaleString()} bags of wool!`;
-	maxBagsDisplay.innerText	= `Max wool: ${max.toLocaleString()}`;
+	[wbps, wbpc] = [calculateWBPS(), calculateWBPC()];
+	
+	woolBagsDisplay.innerText
+		= `You have ${c.toLocaleString()} bags of wool!`;
+	maxBagsDisplay.innerText
+		= `Max wool: ${max.toLocaleString()}`;
 
 	// Update cost displays
 	for (let i = 0; i < units.length; i++) {
@@ -92,12 +103,14 @@ setInterval(() => {
 	// Update income stats
 	wbpsDisplay.innerText = `WBpS: ${wbps.toLocaleString()}`;
 	wbpcDisplay.innerText = `WBpC: ${wbpc.toLocaleString()}`;
+
+	// Add wbps to total
+	addWool(wbps/FPS);
 }, DELAY);
 
-document.getElementById("clickspace")
-		.addEventListener("click", () => {
+clickspace.addEventListener("click", () => {
 	addWool(wbpc);
-	m.play();
+	musicElement.play();
 	
 	cont.style.width = "99%";
 	csound.play();
@@ -109,8 +122,8 @@ document.getElementById("clickspace")
 document.addEventListener("keypress", (e) => {
 	switch (e.key) {
 		case "1":
-			if (sbomb) {
-				sbomb = false;
+			if (inventory.sheepBomb > 0) {
+				inventory.sheepBomb--;
 				fireSheepBomb();
 			} else {
 				alert("You don't have a Sheep Bomb!");
@@ -125,12 +138,12 @@ document.addEventListener("keypress", (e) => {
 			break;
 
 		case "d": // might only run once, since ported from jquery
-			if (drill) addWool(wbpc);
+			if (drillUnlocked) addWool(wbpc);
 			break;
 
 		case "m":
-			if (m.paused)	m.play();
-			else			m.pause();
+			if (musicElement.paused)	musicElement.play();
+			else						musicElement.pause();
 			break;
 		
 		case "-":
@@ -149,27 +162,21 @@ document.addEventListener("keypress", (e) => {
 	}
 });
 
-
-
-// Add wool bags to total
-setInterval(() => {
-	addWool(wbps/FPS);
-}, DELAY);
-
-function calculateWBPS() {
+function calculateWBPS(): number {
 	// Algebraic function to find WBPS from unit amounts
-	return ((uCounts[$Unit.SHEARER]		* 2			* uMultis[$Unit.SHEARER]) +
-			(uCounts[$Unit.KNITTER]		* 100		* uMultis[$Unit.KNITTER]) +
-			(uCounts[$Unit.BABYSITTER]	* 1000000	* uMultis[$Unit.BABYSITTER]))
-		* getPizzaMulti();
+	return
+		((uCounts[$Unit.SHEARER]	* 2			* uMultis[$Unit.SHEARER]) +
+		(uCounts[$Unit.KNITTER]		* 100		* uMultis[$Unit.KNITTER]) +
+		(uCounts[$Unit.BABYSITTER]	* 1000000	* uMultis[$Unit.BABYSITTER]))
+			* getPizzaMulti();
 }
 
-function calculateWBPC() {
+function calculateWBPC(): number {
 	return (uCounts[$Unit.SHEPHERD] * uMultis[$Unit.SHEPHERD] + 1)
 		* getPizzaMulti();
 }
 
-function getPizzaMulti() {
+function getPizzaMulti(): number {
 	const	multi = uCounts[$Unit.PIZZAGUY] * uMultis[$Unit.PIZZAGUY];
 	return	multi > 0 ? multi : 1;
 }
@@ -178,18 +185,19 @@ function getPizzaMulti() {
 dxbElement.addEventListener("click", () => {
 	if (c >= max) {
 		c = new Decimal(0);
-		dxb++;
+		dxbLevel++;
 		var presences = [" magical", " mysterious", " mystical",
-						 " dangerous", "n adventurous"]
+						" dangerous", "n adventurous", " guiding",
+						" fuzzy", " wooly"]
 		var presence = presences[Math.floor(Math.random()*presences.length)];
-		alert("You feel a" +presence +" presence, granting you more power...");
+		alert(`You feel a${presence} presence...`);
 	} else {
 		alert("Not enough money!");
 	}
 
-	max = BLESSING_CAPS[dxb];
+	max = BLESSING_CAPS[dxbLevel];
 	dxbElement.innerText =
-		`DEXIE'S BLESSING ${(dxb + 1)} (${max.toLocaleString()})`;
+		`DEXIE'S BLESSING ${(dxbLevel + 1)} (${max.toLocaleString()})`;
 });
 
 function addWool(amount: number): void {
