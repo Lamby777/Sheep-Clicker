@@ -3,8 +3,10 @@
 	################################	*/
 
 import {qstr}			from "./dx";
-import {units,	$Unit}	from "./classes";
 import Decimal			from "./_decimal";
+import {
+	units,	$Unit,	formatDecimal,
+}	from "./classes";
 
 const FPS = 20;
 const DELAY = 1000 / FPS;
@@ -14,8 +16,6 @@ qstr.clear();
 const dev = queries["dev"] === "1";
 const cont = (document.getElementById("clickarea") as HTMLDivElement);
 const csound = (document.getElementById("cs") as HTMLAudioElement);
-
-alert(new Decimal("1_500_000_000").e);
 
 const BLESSING_CAPS = [
 	new Decimal("200_000_000"),

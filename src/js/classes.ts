@@ -32,17 +32,42 @@ class Upgrade {
 // Had to rename this class because I realized I
 // invented a math concept that already exists... ¯\_(ツ)_/¯
 export function formatDecimal(dec: Decimal): string {
-	return `${dec.d[0].toFixed(3)}e${getDecimalSuffix(dec)}`
+	return `${significantCoefficient(dec)}${getDecimalSuffix(dec)}`
 }
 
-export function getDecimalSuffix(dec: Decimal): string {
+// Returns string representation of truncated SN coefficient
+function significantCoefficient(dec: Decimal,
+								decimalPlaces = 3) {
+	// (Required for both paths)
+	const str	= dec.toString();
+	
+	// Guard function for values 0-999
+	if (dec.e < 3) return str;
+
+	// Values with dedicated suffixes (like k, mil, etc.)
+	else if (dec.e) {
+		// 1234		=> 1.34k
+		// 123456	=> .123k
+		const preDecimalDigits = (str.length) % 3;
+		if (preDecimalDigits === 0) preDecimalDigits = 3;
+		
+		return str.slice(0,preDecimalDigits) + "." +
+			str.slice(preDecimalDigits,
+					  preDecimalDigits+decimalPlaces);
+	}
+	
+	// Return decimal SN form for higher numbers
+	else return str[0] + "." + str.slice(1, 1+decimalPlaces);
+}
+
+function getDecimalSuffix(dec: Decimal): string {
 	// The "suffix bracket" of the number (goes up every 3 digits)
 	const exp3pair = Math.floor(dec.e / 3);
 
 	// If over 999 Decillion, just spit out the scientific notation
 	if (exp3pair <= NUMBER_SUFFIXES.length)
 		return NUMBER_SUFFIXES[exp3pair];
-	else return `e^${dec.e}`;
+	else return `e${dec.e}`;
 }
 
 export const enum $Unit {
