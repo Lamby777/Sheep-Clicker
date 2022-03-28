@@ -38,16 +38,15 @@ export function formatDecimal(dec: Decimal): string {
 // Returns string representation of truncated SN coefficient
 function significantCoefficient(dec: Decimal,
 								decimalPlaces = 3) {
-	// (Required for both paths)
 	const str	= dec.toString();
+
 	
-	// Guard function for values 0-999
+	// Values 0-999
 	if (dec.e < 3) return str;
 
 	// Values with dedicated suffixes (like k, mil, etc.)
 	else if (dec.e) {
-		// 1234		=> 1.34k
-		// 123456	=> .123k
+		// Modulo str.length except map 0 to 3
 		const preDecimalDigits = (str.length) % 3;
 		if (preDecimalDigits === 0) preDecimalDigits = 3;
 		
@@ -56,7 +55,7 @@ function significantCoefficient(dec: Decimal,
 					  preDecimalDigits+decimalPlaces);
 	}
 	
-	// Return decimal SN form for higher numbers
+	// Values without a dedicated suffix (S. notation format)
 	else return str[0] + "." + str.slice(1, 1+decimalPlaces);
 }
 
