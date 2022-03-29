@@ -1,3 +1,6 @@
+@import "bootstrapConstants.scss";
+@import "~bootstrap/scss/bootstrap";
+
 body {
 	background-image: url("/dist/media/connectwork.png");
 	color: white;
@@ -11,36 +14,39 @@ body {
 	user-select: none;
 }
 
-.ct {
+@mixin ct() {
 	text-align: center;
-	img, & > img {
-		display: block;
-		margin: inherit auto;
-	}
+}
+
+.ct {
+	@include ct();
 }
 
 .fixed {
 	position: fixed;
 	width: 100%;
 	top: 0;
-	left: 0;
+	//left: 0;
 }
 
 div#clickspace {
+	@include ct();
 	background: #f0f0f0;
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
-	width: 50%;
-	height: 100vh;
-	text-align: center;
+}
+
+div#clickarea {
+	@include ct();
 }
 
 img#sheep {
+	@include ct();
 	cursor: pointer;
 }
 
-#bbsheps {
+#bulkbuy {
 	color: black;
 	background: #ccffcc;
 }
@@ -68,7 +74,7 @@ img#sheep {
 }
 
 #tbt, #topbar {
-	background-color: darkslategray;
+	//background-color: darkslategray;
 	background-attachment: fixed;
 	background-position: center;
 	background-repeat: no-repeat;
@@ -89,11 +95,4 @@ img#sheep {
 
 .red {
 	color: red;
-}
-
-.fixeddown {
-	position: fixed;
-	width: 100%;
-	bottom: 0;
-	left: 0;
 }

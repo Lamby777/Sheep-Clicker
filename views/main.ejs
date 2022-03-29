@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-US">
 
 <head>
 	<meta charset="utf-8">
@@ -12,31 +12,39 @@
 
 <body>
 	<!-- Header -->
-	<div id="topbar" class="fixed">
+	<nav id="topbar" class="fixed bg-primary py-2">
 		<p id="tbt" class="ct">Sheep Clicker version
 			<span class="red" id="ver">b8</span> by
-			<a href="https://repl.it/@Lamby777" class="hidelink white">
+			<a href="https://replit.com/@Lamby777" class="hidelink white">
 				DexieTheSheep
 			</a>
 		</p>
-	</div>
+	</nav>
 	<br><br><br><br>
-	<div id="clickspace" oncontextmenu="return false;">
+	<div id="clickspace" class="containter bg-secondary mb-5"
+		oncontextmenu="return false;">
 	<br/>
 	<h3 id="pts" class="ct">
 		Click the sheep to shear him!
 	</h3>
-	<span title="You can increase this with Dexie's Blessings">
-		<h4 id="max" class="ct">
-			Max wool:
-		</h4>
-	</span>
+	<h4 title="You can increase this with Dexie's Blessings"
+		id="max" class="ct">
+		Max wool:
+	</h4>
 	<div id="clickarea">
-	<img id="sheep" class="ct" src="/media/sheep.jpeg"></img>
+		<img id="sheep" alt="A sheep who recently found your farm"
+			class="mx-auto" src="/media/sheep.jpeg">
 	</div>
 	<br/><br/>
-	<span title="WBpC is how many bags of wool you get each time you click the big sheep to shear him. You can increase your WBpC by buying Shepherds or buying any upgrade that directly (WBpC boost) or indirectly (Shepherd boost, and some other stuff) helps you gain WBpC"><p id="wbpc">WBpC: 0</p></span>
-	<span title="WBpS is how many bags of wool you get per second, automatically. You can increase your WBpS by buying certain upgrades, or by buying any game asset except Shepherd. (Shepherd increases WBpC)"><p id="wbps">WBpS: 0</p></span>
+	<p id="wbpc" title="WBpC is how many bags of wool you get each time
+		you click the big sheep to shear him. You can increase your WBpC
+		by buying Shepherds or buying any upgrade that directly
+		(WBpC boost) or indirectly (Shepherd boost, and some other
+		stuff) helps you gain WBpC">WBpC: 0</p>
+	<p id="wbps" title="WBpS is how many bags of wool you get per second,
+		automatically. You can increase your WBpS by buying certain
+		upgrades, or by buying any game asset except Shepherd.
+		(Shepherd increases WBpC)">WBpS: 0</p>
 	<br/>
 	</div>
 	<div class="ct">
@@ -58,18 +66,15 @@
 		</p>
 		<p id="dxb" class="supgrade">DEXIE'S BLESSING 1 (200Mil)</p>
 		<br><br><br>
-		<p id="bbsheps" class="cpu">Key B = Bulk buy last bought item</p>
-		<p id="bbli bbsheps" class="mobile">{Bulk Buy last item}</p>
+		<p id="bulkbuy">Key B = Bulk buy last bought item</p>
 		<h2>Upgrades</h2>
 			//
-		</div>
-		</div>
 		</div>
 	</div>
 
 	
 	<!-- Audio -->
-	<audio id="mus" volume="0.4" loop>
+	<audio id="mus" loop>
 		<source src="/media/soundscape.mp3" type="audio/mpeg">
 	</audio>
 	<audio id="cs">

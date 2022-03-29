@@ -39,3 +39,17 @@ export namespace qstr {
 		return dict;
 	}
 }
+
+export namespace rand {
+	export function r_int(min: number, max: number) {
+		return Math.floor(Math.random() * (max - min)) + min;
+	}
+	
+	export function r_num(min: number, max: number) {
+		return (Math.random() * (max - min)) + min;
+	}
+
+	export function r_choice(arr: any[]) {
+		return arr[r_int(0, arr.length - 1)];
+	}
+}

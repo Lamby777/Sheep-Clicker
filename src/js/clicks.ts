@@ -2,7 +2,7 @@
 	#	  Dexie's Sheep Clicker	   #
 	################################	*/
 
-import {qstr}			from "./dx";
+import {qstr, rand}		from "./dx";
 import Decimal			from "./_decimal";
 import {$Unit}			from "./enum";
 import {
@@ -15,6 +15,12 @@ const queries = qstr.parseQ();
 qstr.clearQ();
 
 const dev = queries["dev"] === "1";
+
+const DXB_PRESENCES = [
+	" magical",		" mysterious",		" mystical",
+	" dangerous",	"n adventurous",	" guiding",
+	" fuzzy",		" wooly",
+];
 
 const BLESSING_CAPS = [
 	new Decimal("200_000_000"),
@@ -45,6 +51,8 @@ const [
 	document.getElementById("dxb"),
 	document.getElementById("clickspace"),
 ];
+
+musicElement.volume = 0.7;
 
 export const uCounts:		number[]		= [];
 export const uMultis:		number[]		= [];
@@ -115,6 +123,7 @@ clickspace.addEventListener("click", () => {
 	musicElement.play();
 	
 	cont.style.width = "99%";
+	csound.currentTime = 0;
 	csound.play();
 	setTimeout(() => {
 		cont.style.width = "100%";
@@ -189,10 +198,7 @@ dxbElement.addEventListener("click", () => {
 	if (c >= max) {
 		c = new Decimal(0);
 		dxbLevel++;
-		var presences = [" magical", " mysterious", " mystical",
-						" dangerous", "n adventurous", " guiding",
-						" fuzzy", " wooly"]
-		var presence = presences[Math.floor(Math.random()*presences.length)];
+		var presence = rand.r_choice(DXB_PRESENCES);
 		alert(`You feel a${presence} presence...`);
 	} else {
 		alert("Not enough money!");
