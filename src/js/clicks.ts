@@ -6,18 +6,12 @@ import {qstr, rand}		from "./dx";
 import Decimal			from "./_decimal";
 import E				from "./elements";
 import {
-	$Unit, BLESSING_CAPS, DXB_PRESENCES
+	$Unit,	BLESSING_CAPS,	DXB_PRESENCES,
+	FPS,	FPS_DELAY,		dev
 }	from "./staticConf";
 import {
 	units,	formatDecimal
 }	from "./classes";
-
-const FPS = 20;
-const DELAY = 1000 / FPS;
-const queries = qstr.parseQ();
-qstr.clearQ();
-
-const dev = queries["dev"] === "1";
 
 E.music.volume = 0.7;
 
@@ -93,7 +87,7 @@ setInterval(() => {
 
 	// Add wbps to total
 	addWool(wbps/FPS);
-}, DELAY);
+}, FPS_DELAY);
 
 E.clickspace.addEventListener("click", () => {
 	addWool(wbpc);
