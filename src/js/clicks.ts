@@ -40,6 +40,7 @@ const [
 	musicElement,
 	dxbElement,
 	clickspace,
+	hrDepartment
 ] = [
 	document.getElementById("pts"),
 	document.getElementById("max"),
@@ -50,6 +51,7 @@ const [
 	(document.getElementById("mus") as HTMLAudioElement),
 	document.getElementById("dxb"),
 	document.getElementById("clickspace"),
+	document.getElementById("hr-department"),
 ];
 
 musicElement.volume = 0.7;
@@ -57,6 +59,13 @@ musicElement.volume = 0.7;
 export const uCounts:		number[]		= [];
 export const uMultis:		number[]		= [];
 export const uElements:		HTMLElement[]	= [];
+export const uDisplayNames:	string[]		= [
+	"Shepherd",
+	"Shearer",
+	"Knitter",
+	"Sheep-sitter",
+	"Pizza Delivery",
+];
 
 units.forEach((v, i) => {
 	uCounts[i]		= 0;
@@ -64,6 +73,10 @@ units.forEach((v, i) => {
 
 	// Make upgrader element
 	let elem = document.createElement("p");
+	elem.id = `hire-unit-${i}`;
+	elem.classList.add("supgrade", "col-4", "mx-auto");
+	hrDepartment.appendChild(elem);
+	
 	elem.addEventListener("click", () => {
 		let cost = getCostOfNext(i);
 		
@@ -107,7 +120,7 @@ setInterval(() => {
 	// Update cost displays
 	uElements.forEach((v, i) => {
 		v.innerText =
-			`[${$Unit[i]}] Hired: ${uCounts[i]} Cost: ${getCostOfNext(i)}`;
+			`[${uDisplayNames[i]}] Hired: ${uCounts[i]} Cost: ${getCostOfNext(i)}`;
 	});
 
 	// Update income stats
