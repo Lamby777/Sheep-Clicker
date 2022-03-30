@@ -4,9 +4,11 @@
 
 import {qstr, rand}		from "./dx";
 import Decimal			from "./_decimal";
-import {$Unit}			from "./enum";
 import {
-	units,	formatDecimal,
+	$Unit, BLESSING_CAPS, DXB_PRESENCES
+}	from "./staticConf";
+import {
+	units,	formatDecimal
 }	from "./classes";
 
 const FPS = 20;
@@ -14,21 +16,9 @@ const DELAY = 1000 / FPS;
 const queries = qstr.parseQ();
 qstr.clearQ();
 
+
+
 const dev = queries["dev"] === "1";
-
-const DXB_PRESENCES = [
-	" magical",		" mysterious",		" mystical",
-	" dangerous",	"n adventurous",	" guiding",
-	" fuzzy",		" wooly",
-];
-
-const BLESSING_CAPS = [
-	new Decimal("200_000_000"),
-	new Decimal("1_000_000_000"),
-	new Decimal("500_000_000_000"),
-	new Decimal("2_000_000_000_000"),
-	new Decimal("250_000_000_000_000"),
-];
 
 const [
 	woolBagsDisplay,
@@ -56,43 +46,41 @@ const [
 
 musicElement.volume = 0.7;
 
-export const uCounts:		number[]		= [];
-export const uMultis:		number[]		= [];
-export const uElements:		HTMLElement[]	= [];
-export const uDisplayNames:	string[]		= [
-	"Shepherd",
-	"Shearer",
-	"Knitter",
-	"Sheep-sitter",
-	"Pizza Delivery",
-];
+interface UnitData {
+	count:			number;
+	multi:			number;
+	element:		HTMLElement;
+}
+
+export const uData: UnitData[] = [];
 
 units.forEach((v, i) => {
-	uCounts[i]		= 0;
-	uMultis[i]		= 1;
-
 	// Make upgrader element
 	let elem = document.createElement("p");
 	elem.id = `hire-unit-${i}`;
 	elem.classList.add("supgrade", "col-4", "mx-auto");
 	hrDepartment.appendChild(elem);
 	
+	uData[i] = {
+		count:		0,
+		multi:		1,
+		element:	elem,
+	}
+	
 	elem.addEventListener("click", () => {
 		let cost = getCostOfNext(i);
 		
 		if (c.gte(cost)) {
 			c = c.minus(cost);
-			uCounts[i]++;
+			uData[i].count++;
 			last = i;
 		} else {
-			uElements[i].style.backgroundColor = "red";
+			uData[i].element.style.backgroundColor = "red";
 			setTimeout(() => {
-				uElements[i].style.backgroundColor = "";
+				uData[i].element.style.backgroundColor = "";
 			}, 300);
 		}
 	});
-	
-	uElements[i] = elem;
 });
 
 export let max			= BLESSING_CAPS[0];
@@ -113,14 +101,15 @@ setInterval(() => {
 	wbpc = calculateWBPC();
 	
 	woolBagsDisplay.innerText
-		= `You have ${c.toLocaleString()} bags of wool!`;
+//		= `You have ${c.toLocaleString()} bags of wool!`;
+		= `You have ${formatDecimal(c)} bags of wool!`;
 	maxBagsDisplay.innerText
 		= `Max wool: ${max.toLocaleString()}`;
 
 	// Update cost displays
-	uElements.forEach((v, i) => {
-		v.innerText =
-			`[${uDisplayNames[i]}] Hired: ${uCounts[i]} Cost: ${getCostOfNext(i)}`;
+	uData.forEach((v, i) => {
+		v.element.innerText =
+`[${units[i].name}] Hired: ${uData[i].count} Cost: ${getCostOfNext(i)}`;
 	});
 
 	// Update income stats
@@ -157,7 +146,7 @@ document.addEventListener("keypress", (e) => {
 			let cost = getCostOfNext(last);
 			while (c.gte(cost)) {
 				c = c.minus(cost);
-				uCounts[last]++;
+				uData[last].count++;
 			}
 			break;
 
@@ -177,7 +166,7 @@ document.addEventListener("keypress", (e) => {
 			break;
 
 		case "0":
-			if (dev) uCounts[$Unit.SHEPHERD]++;
+			if (dev) uData[$Unit.SHEPHERD].count++;
 			break;
 		
 		case "9":
@@ -188,21 +177,24 @@ document.addEventListener("keypress", (e) => {
 
 function calculateWBPS(): number {
 	// Algebraic function to find WBPS from unit amounts
-	const v = (((uCounts[$Unit.SHEARER]	* 2			* uMultis[$Unit.SHEARER]) +
-		(uCounts[$Unit.KNITTER]		* 100		* uMultis[$Unit.KNITTER]) +
-		(uCounts[$Unit.BABYSITTER]	* 1000000	* uMultis[$Unit.BABYSITTER]))
-		* getPizzaMulti());
+	const v = ((
+(uData[$Unit.SHEARER].count		* 2			* uData[$Unit.SHEARER].multi) +
+(uData[$Unit.KNITTER].count		* 100		* uData[$Unit.KNITTER].multi) +
+(uData[$Unit.BABYSITTER].count	* 1000000	* uData[$Unit.BABYSITTER].multi)
+	) * getPizzaMulti());
 	
 	return v;
 }
 
 function calculateWBPC(): number {
-	return (uCounts[$Unit.SHEPHERD] * uMultis[$Unit.SHEPHERD] + 1)
+	return (uData[$Unit.SHEPHERD].count * uData[$Unit.SHEPHERD].multi + 1)
 		* getPizzaMulti();
 }
 
 function getPizzaMulti(): number {
-	const	multi = uCounts[$Unit.PIZZAGUY] * uMultis[$Unit.PIZZAGUY];
+	const	multi = uData[$Unit.PIZZAGUY].count *
+					uData[$Unit.PIZZAGUY].multi;
+	
 	return	multi > 0 ? multi : 1;
 }
 
@@ -231,17 +223,17 @@ function fireSheepBomb() {
 	for (let i = 0; i < 30; i++) {
 		var r = Math.random();
 		if (r < 0.6) {
-			uCounts[$Unit.SHEPHERD]++;
+			uData[$Unit.SHEPHERD].count++;
 		} else if (r < 0.9) {
-			uCounts[$Unit.SHEARER]++;
+			uData[$Unit.SHEARER].count++;
 		} else {
-			uCounts[$Unit.KNITTER]++;
+			uData[$Unit.KNITTER].count++;
 		}
 	}
 }
 
 function getCostOfNext(unitId: number) {
-	return units[unitId].cost(uCounts[unitId]);
+	return units[unitId].cost(uData[unitId].count);
 }
 
 // Saving
