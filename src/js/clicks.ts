@@ -4,6 +4,7 @@
 
 import {qstr, rand}		from "./dx";
 import Decimal			from "./_decimal";
+import E				from "./elements";
 import {
 	$Unit, BLESSING_CAPS, DXB_PRESENCES
 }	from "./staticConf";
@@ -16,35 +17,9 @@ const DELAY = 1000 / FPS;
 const queries = qstr.parseQ();
 qstr.clearQ();
 
-
-
 const dev = queries["dev"] === "1";
 
-const [
-	woolBagsDisplay,
-	maxBagsDisplay,
-	wbpsDisplay,
-	wbpcDisplay,
-	cont,
-	csound,
-	musicElement,
-	dxbElement,
-	clickspace,
-	hrDepartment
-] = [
-	document.getElementById("pts"),
-	document.getElementById("max"),
-	document.getElementById("wbps"),
-	document.getElementById("wbpc"),
-	(document.getElementById("clickarea") as HTMLDivElement),
-	(document.getElementById("cs") as HTMLAudioElement),
-	(document.getElementById("mus") as HTMLAudioElement),
-	document.getElementById("dxb"),
-	document.getElementById("clickspace"),
-	document.getElementById("hr-department"),
-];
-
-musicElement.volume = 0.7;
+E.music.volume = 0.7;
 
 interface UnitData {
 	count:			number;
@@ -59,7 +34,7 @@ units.forEach((v, i) => {
 	let elem = document.createElement("p");
 	elem.id = `hire-unit-${i}`;
 	elem.classList.add("supgrade", "col-4", "mx-auto");
-	hrDepartment.appendChild(elem);
+	E.hrDepartment.appendChild(elem);
 	
 	uData[i] = {
 		count:		0,
@@ -100,10 +75,10 @@ setInterval(() => {
 	wbps = calculateWBPS();
 	wbpc = calculateWBPC();
 	
-	woolBagsDisplay.innerText
+	E.woolBags.innerText
 //		= `You have ${c.toLocaleString()} bags of wool!`;
 		= `You have ${formatDecimal(c)} bags of wool!`;
-	maxBagsDisplay.innerText
+	E.maxBags.innerText
 		= `Max wool: ${max.toLocaleString()}`;
 
 	// Update cost displays
@@ -113,22 +88,22 @@ setInterval(() => {
 	});
 
 	// Update income stats
-	wbpsDisplay.innerText = `WBpS: ${wbps.toLocaleString()}`;
-	wbpcDisplay.innerText = `WBpC: ${wbpc.toLocaleString()}`;
+	E.wbps.innerText = `WBpS: ${wbps.toLocaleString()}`;
+	E.wbpc.innerText = `WBpC: ${wbpc.toLocaleString()}`;
 
 	// Add wbps to total
 	addWool(wbps/FPS);
 }, DELAY);
 
-clickspace.addEventListener("click", () => {
+E.clickspace.addEventListener("click", () => {
 	addWool(wbpc);
-	musicElement.play();
+	E.music.play();
 	
-	cont.style.width = "99%";
-	csound.currentTime = 0;
-	csound.play();
+	E.clickarea.style.width = "99%";
+	E.clickSound.currentTime = 0;
+	E.clickSound.play();
 	setTimeout(() => {
-		cont.style.width = "100%";
+		E.clickarea.style.width = "100%";
 	}, 50);
 });
 
@@ -155,8 +130,8 @@ document.addEventListener("keypress", (e) => {
 			break;
 
 		case "m":
-			if (musicElement.paused)	musicElement.play();
-			else						musicElement.pause();
+			if (E.music.paused)	E.music.play();
+			else				E.music.pause();
 			break;
 		
 		case "-":
@@ -199,7 +174,7 @@ function getPizzaMulti(): number {
 }
 
 // Dexie's Blessing
-dxbElement.addEventListener("click", () => {
+E.blessing.addEventListener("click", () => {
 	if (c >= max) {
 		c = new Decimal(0);
 		dxbLevel++;
@@ -210,7 +185,7 @@ dxbElement.addEventListener("click", () => {
 	}
 
 	max = BLESSING_CAPS[dxbLevel];
-	dxbElement.innerText =
+	E.blessing.innerText =
 		`DEXIE'S BLESSING ${(dxbLevel + 1)} (${max.toLocaleString()})`;
 });
 
