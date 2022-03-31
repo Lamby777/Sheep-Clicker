@@ -8,22 +8,29 @@ import upgradeDB		from "./upgrades";
 import Decimal			from "./_decimal";
 interface UpgradeTable {
 	// Amount added to multipliers
-	multiBoost?: number[];
+	multiBoost?:	Record<number, number>;
+	action?:		(() => void);
 }
 
 class Upgrade {
-	public readonly id:				number;
-	public readonly name:			string;
-	public readonly description:	string;
-	public readonly cost:			Decimal;
-	public readonly action:			UpgradeTable | (() => void);
+	public static	list:			Upgrade[] = [];
 
+	constructor(
+		public readonly	id:				number,
+		public readonly	name:			string,
+		public readonly	description:	string,
+		public readonly	cost:			Decimal,
+		public readonly upgrade:		UpgradeTable
+	) {
+		Upgrade.list.push(this);
+	}
+	
 	makeHTMLElement(): HTMLElement {
 		const fCost = formatDecimal(this.cost);
 		const element = document.createElement("p");
 		element.classList.add("upgrade");
 		element.innerText = `${this.name} (${fCost})`;
-
+	
 		return element;
 	}
 }
@@ -97,7 +104,15 @@ export const units = [
 		(lv) => (lv ** 7 + 500000000)),
 ];
 
+export const upgrades = Upgrade.list;
+
 // Initialize upgrades
-upgradeDB.forEach((val) => {
-	//
+upgradeDB.forEach((u, i) => {
+	const upgradeObj = new Upgrade(
+		i,
+		u.name,
+		u.desc,
+		u.cost,
+		u.upgrade,
+	);
 });
