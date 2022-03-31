@@ -6,8 +6,7 @@ import {qstr, rand}		from "./dx";
 import Decimal			from "./_decimal";
 import E				from "./elements";
 import {
-	$Unit,	BLESSING_CAPS,	DXB_PRESENCES,
-	FPS,	FPS_DELAY,		dev
+	$Unit,	FPS,	FPS_DELAY,	dev
 }	from "./staticConf";
 import {
 	units,	formatDecimal
@@ -52,9 +51,7 @@ units.forEach((v, i) => {
 	});
 });
 
-export let max			= BLESSING_CAPS[0];
 export let c			= new Decimal(0); // Bags of wool
-export let dxbLevel		= 0;
 let drillUnlocked		= false;
 let wbps:	number		= 0;
 let wbpc:	number;
@@ -72,8 +69,6 @@ setInterval(() => {
 	E.woolBags.innerText
 //		= `You have ${c.toLocaleString()} bags of wool!`;
 		= `You have ${formatDecimal(c)} bags of wool!`;
-	E.maxBags.innerText
-		= `Max wool: ${max.toLocaleString()}`;
 
 	// Update cost displays
 	uData.forEach((v, i) => {
@@ -172,25 +167,8 @@ function getPizzaMulti(): number {
 	return	multi > 0 ? multi : 1;
 }
 
-// Dexie's Blessing
-E.blessing.addEventListener("click", () => {
-	if (c >= max) {
-		c = new Decimal(0);
-		dxbLevel++;
-		var presence = rand.r_choice(DXB_PRESENCES);
-		alert(`You feel a${presence} presence...`);
-	} else {
-		alert("Not enough money!");
-	}
-
-	max = BLESSING_CAPS[dxbLevel];
-	E.blessing.innerText =
-		`DEXIE'S BLESSING ${(dxbLevel + 1)} (${max.toLocaleString()})`;
-});
-
 function addWool(amount: number): void {
 	c = c.plus(amount);
-	if (c.gt(max)) c = max;
 }
 
 function fireSheepBomb() {
