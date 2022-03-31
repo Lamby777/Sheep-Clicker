@@ -8,6 +8,7 @@ namespace elements {
 		clickspace,
 		clickarea,
 		hrDepartment,
+		rdDepartment,
 		sheep,
 		sheepShakeContainer,
 	] = [
@@ -19,6 +20,7 @@ namespace elements {
 		document.getElementById("clickspace"),
 		(document.getElementById("clickarea") as HTMLDivElement),
 		document.getElementById("hr-department"),
+		document.getElementById("rd-department"),
 		document.getElementById("sheep"),
 		document.getElementById("sheep-shake-container"),
 	];

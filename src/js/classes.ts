@@ -6,14 +6,28 @@ const NUMBER_SUFFIXES = [	"", "k", "Mil", "Bil", "T", "Q",
 
 import upgradeDB		from "./upgrades";
 import Decimal			from "./_decimal";
-interface UpgradeTable {
+import {$Unit}			from "./staticConf";
+
+export interface UnitData {
+	count:		number;
+	multi:		number;
+	element:	HTMLElement;
+}
+
+export interface ResearchDesignData {
+	upgrade:	Upgrade;
+	element:	HTMLElement;
+	purchased:	boolean;
+}
+
+export interface UpgradeTable {
 	// Amount added to multipliers
-	multiBoost?:	Record<number, number>;
+	multiBoost?:	{ [key in $Unit]?: number };
 	action?:		(() => void);
 }
 
 class Upgrade {
-	public static	list:			Upgrade[] = [];
+	public static list: Upgrade[] = [];
 
 	constructor(
 		public readonly	id:				number,
@@ -25,10 +39,10 @@ class Upgrade {
 		Upgrade.list.push(this);
 	}
 	
-	makeHTMLElement(): HTMLElement {
+	createHTMLElement(): HTMLElement {
 		const fCost = formatDecimal(this.cost);
 		const element = document.createElement("p");
-		element.classList.add("upgrade");
+		element.classList.add("upgrade", "col-9", "mx-auto")
 		element.innerText = `${this.name} (${fCost})`;
 	
 		return element;
@@ -104,8 +118,6 @@ export const units = [
 		(lv) => (lv ** 7 + 500000000)),
 ];
 
-export const upgrades = Upgrade.list;
-
 // Initialize upgrades
 upgradeDB.forEach((u, i) => {
 	const upgradeObj = new Upgrade(
@@ -116,3 +128,5 @@ upgradeDB.forEach((u, i) => {
 		u.upgrade,
 	);
 });
+
+export const upgrades = Upgrade.list;

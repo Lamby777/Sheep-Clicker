@@ -9,23 +9,19 @@ import {
 	$Unit,	FPS,	FPS_DELAY,	dev
 }	from "./staticConf";
 import {
-	units,	formatDecimal
+	units,		formatDecimal,	upgrades,
+	UnitData,	ResearchDesignData,
+	UpgradeTable,
 }	from "./classes";
 
 E.music.volume = 0.7;
 
-interface UnitData {
-	count:			number;
-	multi:			number;
-	element:		HTMLElement;
-}
-
-export const uData: UnitData[] = [];
+export const uData: 	UnitData[] = [];
+export const rdData:	ResearchDesignData[] = [];
 
 units.forEach((v, i) => {
-	// Make upgrader element
+	// Make hiring element
 	let elem = document.createElement("p");
-	elem.id = `hire-unit-${i}`;
 	elem.classList.add("supgrade", "col-9", "mx-auto");
 	E.hrDepartment.appendChild(elem);
 	
@@ -43,9 +39,41 @@ units.forEach((v, i) => {
 			uData[i].count++;
 			last = i;
 		} else {
-			uData[i].element.style.backgroundColor = "red";
+			elem.style.backgroundColor = "red";
 			setTimeout(() => {
-				uData[i].element.style.backgroundColor = "";
+				elem.style.backgroundColor = "";
+			}, 300);
+		}
+	});
+});
+
+upgrades.forEach((v, i) => {
+	// Make upgrading element
+	let elem = v.createHTMLElement();
+
+	// 5 upgrades visible at a time
+	if (i < 5) E.rdDepartment.appendChild(elem);
+	
+	rdData[i] = {
+		upgrade:	v,
+		element:	elem,
+		purchased:	false,
+	}
+	
+	elem.addEventListener("click", () => {
+		if (c.gte(v.cost)) {
+			c = c.minus(v.cost);
+			rdData[i].purchased = true;
+			applyUpgradeTable(v.upgrade);
+
+			// Replace element
+			elem.remove();
+			if (rdData[i+1])
+				E.rdDepartment.appendChild(rdData[i+1].element);
+		} else {
+			elem.style.backgroundColor = "red";
+			setTimeout(() => {
+				elem.style.backgroundColor = "";
 			}, 300);
 		}
 	});
@@ -144,6 +172,24 @@ document.addEventListener("keypress", (e) => {
 	}
 });
 
+
+
+
+
+
+
+
+function applyUpgradeTable(u: UpgradeTable) {
+	// Apply multipliers
+	Object.entries(u.multiBoost).forEach((v) => {
+		const [unitId, unitBoost] = v;
+		uData[parseInt(unitId)].multi += unitBoost;
+	});
+	
+	// If custom action exists, run it.
+	u.action?.();
+}
+
 function calculateWBPS(): number {
 	// Algebraic function to find WBPS from unit amounts
 	const v = ((
@@ -188,17 +234,3 @@ function getCostOfNext(unitId: number) {
 	return units[unitId].cost(uData[unitId].count);
 }
 
-// Saving
-/* setInterval(function() {
-	localStorage.setItem("saves", [
-		c,
-		sheps,
-		shrr,
-		knt,
-		drill ? 1 : 0,
-		sbomb ? 1 : 0,
-		shepmulti,
-		shrrmulti,
-		kntmulti,
-	]);
-}, 15000); */
