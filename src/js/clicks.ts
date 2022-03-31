@@ -27,7 +27,7 @@ units.forEach((v, i) => {
 	// Make upgrader element
 	let elem = document.createElement("p");
 	elem.id = `hire-unit-${i}`;
-	elem.classList.add("supgrade", "col-4", "mx-auto");
+	elem.classList.add("supgrade", "col-9", "mx-auto");
 	E.hrDepartment.appendChild(elem);
 	
 	uData[i] = {
@@ -93,11 +93,11 @@ E.clickspace.addEventListener("click", () => {
 	addWool(wbpc);
 	E.music.play();
 	
-	E.clickarea.style.width = "99%";
+	E.sheepShakeContainer.style.width = "95%";
 	E.clickSound.currentTime = 0;
 	E.clickSound.play();
 	setTimeout(() => {
-		E.clickarea.style.width = "100%";
+		E.sheepShakeContainer.style.width = "100%";
 	}, 50);
 });
 
@@ -140,6 +140,11 @@ document.addEventListener("keypress", (e) => {
 		
 		case "9":
 			if (dev) c = c.plus(c.times(2));
+			break;
+
+		case "q":
+			alert(c);
+			alert(formatDecimal(c));
 			break;
 	}
 });

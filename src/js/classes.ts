@@ -6,7 +6,6 @@ const NUMBER_SUFFIXES = [	"", "k", "Mil", "Bil", "T", "Q",
 
 import upgradeDB		from "./upgrades";
 import Decimal			from "./_decimal";
-
 interface UpgradeTable {
 	// Amount added to multipliers
 	multiBoost?: number[];
@@ -36,7 +35,7 @@ export function formatDecimal(dec: Decimal): string {
 // Returns string representation of truncated SN coefficient
 function significantCoefficient(dec: Decimal,
 								decimalPlaces = 3) {
-	const str	= dec.toString();
+	const str	= dec.trunc().toString();
 
 	
 	// Values 0-999

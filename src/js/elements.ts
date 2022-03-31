@@ -9,7 +9,9 @@ namespace elements {
 		blessing,
 		clickspace,
 		clickarea,
-		hrDepartment
+		hrDepartment,
+		sheep,
+		sheepShakeContainer,
 	] = [
 		document.getElementById("pts"),
 		document.getElementById("max"),
@@ -21,6 +23,8 @@ namespace elements {
 		document.getElementById("clickspace"),
 		(document.getElementById("clickarea") as HTMLDivElement),
 		document.getElementById("hr-department"),
+		document.getElementById("sheep"),
+		document.getElementById("sheep-shake-container"),
 	];
 }
 

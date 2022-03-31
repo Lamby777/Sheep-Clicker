@@ -37,11 +37,15 @@ div#clickspace {
 
 div#clickarea {
 	@include ct();
+	display: grid;
+	place-content: center;
+	height: 20em;
 }
 
 img#sheep {
-	@include ct();
 	cursor: pointer;
+	width: 100%;
+	vertical-align: middle;
 }
 
 #bulkbuy {
@@ -57,14 +61,10 @@ img#sheep {
 	color: black;
 }
 
-.upgrade, .sug {
+.upgrade, .supgrade {
 	font-family: "Lucida Console", Monaco, monospace;
 	user-select: none;
 	cursor: pointer;
-}
-
-.sug {
-	line-height: 60%;
 }
 
 .upgrade {
@@ -72,7 +72,6 @@ img#sheep {
 }
 
 #tbt, #topbar {
-	//background-color: darkslategray;
 	background-attachment: fixed;
 	background-position: center;
 	background-repeat: no-repeat;
