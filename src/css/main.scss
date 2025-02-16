@@ -2,94 +2,99 @@
 @import "~bootstrap/scss/bootstrap";
 
 body {
-	background-image: url("/dist/media/connectwork.png");
-	color: white;
-	height: 100%;
-	
-	background-attachment: fixed;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
-	
-	user-select: none;
+    background-image: url("/public/media/connectwork.png");
+    color: white;
+    height: 100%;
+
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    user-select: none;
 }
 
 @mixin ct() {
-	text-align: center;
+    text-align: center;
 }
 
 .ct {
-	@include ct();
+    @include ct();
 }
 
 .fixed {
-	position: fixed;
-	width: 100%;
-	top: 0;
-	//left: 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    //left: 0;
 }
 
 div#clickspace {
-	@include ct();
-	background: #f0f0f0;
-	display: block;
+    @include ct();
+    background: #f0f0f0;
+    display: block;
 }
 
 div#clickarea {
-	@include ct();
-	display: grid;
-	place-content: center;
-	height: 20em;
+    @include ct();
+    display: grid;
+    place-content: center;
+    height: 20em;
 }
 
 img#sheep {
-	cursor: pointer;
-	width: 100%;
-	vertical-align: middle;
+    cursor: pointer;
+    width: 100%;
+    vertical-align: middle;
 }
 
 #bulkbuy {
-	color: black;
-	background: #ccffcc;
+    color: black;
+    background: #ccffcc;
 }
 
 #store {
-	display: block;
+    display: block;
 }
 
-#wbps, #wbpc, #pts, #max {
-	color: black;
+#wbps,
+#wbpc,
+#pts,
+#max {
+    color: black;
 }
 
-.upgrade, .supgrade {
-	font-family: "Lucida Console", Monaco, monospace;
-	user-select: none;
-	cursor: pointer;
+.upgrade,
+.supgrade {
+    font-family: "Lucida Console", Monaco, monospace;
+    user-select: none;
+    cursor: pointer;
 }
 
 .upgrade {
-	display: block;
+    display: block;
 }
 
-#tbt, #topbar {
-	background-attachment: fixed;
-	background-position: center;
-	background-repeat: no-repeat;
-	background-size: cover;
+#tbt,
+#topbar {
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .hidelink {
-	text-decoration: none;
+    text-decoration: none;
 }
 
 .white {
-	color: white;
+    color: white;
 }
 
 .black {
-	color: black;
+    color: black;
 }
 
 .red {
-	color: red;
+    color: red;
 }

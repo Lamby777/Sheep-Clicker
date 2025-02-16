@@ -1,27 +1,14 @@
-// This app hosts the website for Carbonado
 "use strict";
 
-import Express	from "express";
-import ejs		from "ejs";
+import Express from "express";
 
 const app = Express();
-const {} = app.set("view engine", "ejs");
-const {} = app.use(Express.static(__dirname + "/dist"));
+app.use(Express.static(__dirname + "/public"));
 
-
-
-const {} = app.get("/", (req, res) => {
-	res.render("main");
+app.get("/", (_req, res) => {
+    res.render("main");
 });
 
-const {} = app.get("/api", (req, res) => {
-	res.render("api");
-});
-
-const {} = app.get("/conic", (req, res) => {
-	res.render("conic");
-});
-
-const {} = app.listen(3000, () => {
-	//
+app.listen(3000, () => {
+    console.log("Server is running on port 3000");
 });
